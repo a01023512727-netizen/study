@@ -193,6 +193,21 @@
       padding: 0.1em 0.3em;
       border-radius: 3px;
     }
+    .freq {
+      color: #b45309;
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-left: 0.35rem;
+      white-space: nowrap;
+    }
+    .freq.reserve { color: #64748b; }
+    table.cheat .col-freq { width: 7.5rem; text-align: center; white-space: nowrap; }
+    h2 .tag-reserve {
+      font-size: 0.75rem;
+      color: #64748b;
+      font-weight: 600;
+      margin-left: 0.25rem;
+    }
     @media print {
       .btn-back { display: none; }
       .formula-card { break-inside: avoid; }
@@ -207,8 +222,9 @@
 </div>
 
 <p class="intro">
-  이전·<strong>2024</strong>·<strong>2025</strong> 기출에 나온 <strong>계산 공식 11유형</strong> 총정리입니다.
-  이 표만 확실히 외워도 계산 문제 대부분을 커버할 수 있습니다.
+  이전·<strong>2024</strong>·<strong>2025</strong> 기출 기준 <strong>필수 계산 공식 14개</strong> 총정리입니다.
+  <strong>★★★★★</strong>는 최우선 암기, <strong>★★☆ (예비)</strong>는 가끔 출제·개념 확인용입니다.
+  나이퀴스트·변조·OFDM은 교재 표기 <code>log₂L</code>, <code>log₂M</code> 대신 노트와 같이 <strong>n</strong>(부호당 비트)로 통일했습니다.
 </p>
 
 <nav class="toc" aria-label="목차">
@@ -224,10 +240,13 @@
   <a href="#f9">9 FHSS</a>
   <a href="#f10">10 해밍</a>
   <a href="#f11">11 감쇄</a>
+  <a href="#f12">12 전압dB</a>
+  <a href="#f13">13 AM</a>
+  <a href="#f14">14 dBm</a>
   <a href="#cheat">암기표</a>
 </nav>
 
-<h2 id="f1">1. 나이퀴스트 전송률 (잡음 없는 채널)</h2>
+<h2 id="f1">1. 나이퀴스트 전송률 (잡음 없는 채널) <span class="freq">★★★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">R = 2 × B × n &nbsp; (bps)</div>
   <table class="detail">
@@ -261,7 +280,7 @@
   </table>
 </div>
 
-<h2 id="f2">2. 섀넌(Shannon) 채널 용량 (잡음 있는 채널)</h2>
+<h2 id="f2">2. 섀넌(Shannon) 채널 용량 (잡음 있는 채널) <span class="freq">★★★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">C = B × log₂(1 + SNR) &nbsp; (bps)</div>
   <table class="detail">
@@ -284,7 +303,7 @@
   </table>
 </div>
 
-<h2 id="f3">3. 심볼율 ↔ 비트율</h2>
+<h2 id="f3">3. 심볼율 ↔ 비트율 <span class="freq">★★★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">비트율(bps) = 심볼율(baud) × n</div>
   <table class="detail">
@@ -308,7 +327,7 @@
   </table>
 </div>
 
-<h2 id="f4">4. PCM 양자화 간격</h2>
+<h2 id="f4">4. PCM 양자화 간격 <span class="freq">★★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">Δ = (V<sub>max</sub> − V<sub>min</sub>) / 2ⁿ &nbsp; (V)</div>
   <table class="detail">
@@ -338,7 +357,7 @@
   </table>
 </div>
 
-<h2 id="f5">5. TDM 프레임율 · 비트율</h2>
+<h2 id="f5">5. TDM 프레임율 · 비트율 <span class="freq">★★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">프레임율 = (채널 1개 속도) ÷ (프레임당 byte/채널)<br>총 bit/s = 프레임율 × (프레임당 bit)</div>
   <table class="detail">
@@ -364,7 +383,7 @@
   </table>
 </div>
 
-<h2 id="f6">6. OFDM 전송율</h2>
+<h2 id="f6">6. OFDM 전송율 <span class="freq">★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">전송율 = N × n / T &nbsp; (bps)</div>
   <table class="detail">
@@ -384,7 +403,7 @@
   </table>
 </div>
 
-<h2 id="f7">7. 파장 · 안테나 길이</h2>
+<h2 id="f7">7. 파장 · 안테나 길이 <span class="freq">★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">λ = c / f &nbsp;&nbsp;·&nbsp;&nbsp; 안테나 길이 ∝ λ ∝ 1/f</div>
   <table class="detail">
@@ -404,7 +423,7 @@
   </table>
 </div>
 
-<h2 id="f8">8. FDMA 셀 용량</h2>
+<h2 id="f8">8. FDMA 셀 용량 <span class="freq">★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">셀당 사용자 ≈ (총 대역폭 / 채널 대역폭) / 재사용율</div>
   <table class="detail">
@@ -424,12 +443,13 @@
   </table>
 </div>
 
-<h2 id="f9">9. FHSS 전체 대역폭</h2>
+<h2 id="f9">9. FHSS 전체 대역폭 <span class="freq">★★★</span></h2>
 <div class="formula-card">
-  <div class="formula-main">홉 수 N = 2ⁿ<br>전체 BW = N × (데이터 BW) + (N−1) × (보호대역)</div>
+  <div class="formula-main">홉 수 N = 2ⁿ<br>전체 BW = N × (데이터 BW) + (N−1) × (보호대역)<br><span style="font-size:0.92rem;">또는 2ⁿ × (홉당 데이터+보호) — 교재·문항 확인</span></div>
   <table class="detail">
-    <tr><th>기출</th><td><a class="exam-link" href="./통신공학-기출-학습노트.html#problem-9" title="2025 기출 9번">2025-9</a>: 4bit→N=16, 10kHz/홉, guard 1kHz → 16×10+15×1=<strong>175 kHz</strong></td></tr>
-    <tr><th>주의</th><td>교재에 따라 N×(10+1) 형태로 쓰는 경우도 있음 → 숫자 확인</td></tr>
+    <tr><th>변수</th><td><strong>n</strong> 비트 → 홉 수 <strong>N=2ⁿ</strong> · 홉당 데이터 BW · guard(보호대역)</td></tr>
+    <tr><th>기출</th><td><a class="exam-link" href="./통신공학-기출-학습노트.html#problem-9" title="2025 기출 9번">2025-9</a>: 4bit→N=16, 10kHz/홉, guard 1kHz → 16×10+15×1=<strong>175 kHz</strong> (16×11=176 형태도 있음)</td></tr>
+    <tr><th>주의</th><td>교재에 따라 <strong>2ⁿ×(데이터+보호)</strong> 한 줄식 vs <strong>N×데이터+(N−1)×guard</strong> 분리식 → 숫자 확인</td></tr>
     <tr><th class="hint-th">지문힌트</th><td>
       <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 FHSS 대역폭)</p>
       <table class="hint-kw">
@@ -445,7 +465,7 @@
   </table>
 </div>
 
-<h2 id="f10">10. 해밍 거리 · 오류 검출·정정</h2>
+<h2 id="f10">10. 해밍 거리 · 오류 검출·정정 <span class="freq">★★★</span></h2>
 <div class="formula-card">
   <div class="formula-main">d<sub>min</sub> = 다른 비트 개수 (XOR 후 1의 개수)<br>검출 ≤ d<sub>min</sub> − 1 &nbsp;·&nbsp; 정정 ≤ ⌊(d<sub>min</sub>−1)/2⌋</div>
   <table class="detail">
@@ -464,11 +484,11 @@
   </table>
 </div>
 
-<h2 id="f11">11. 경로 감쇄 (dB · 거리)</h2>
+<h2 id="f11">11. 경로 감쇄 (dB · 거리) <span class="freq">★★★</span></h2>
 <div class="formula-card">
-  <div class="formula-main">감쇄(dB) = 10 × log₁₀(P<sub>송신</sub> / P<sub>수신</sub>)</div>
+  <div class="formula-main">감쇄(dB) = 10 × log₁₀(P<sub>1</sub> / P<sub>2</sub>) &nbsp;·&nbsp; 거리 2배 → 약 <strong>6 dB</strong> 추가(3 dB/km형)</div>
   <table class="detail">
-    <tr><th>설명</th><td>1km당 3dB면 거리 2배마다 약 6dB 추가(자유공간 근사) · 중계기는 구간 감쇄 보상</td></tr>
+    <tr><th>설명</th><td><strong>전력</strong> 비율 → 계수 <strong>10</strong> · 1km당 3dB면 거리 2배마다 약 6dB · 중계기는 구간 감쇄 보상</td></tr>
     <tr><th>기출</th><td>2025-22: 3dB/km, 중계 1개, SNR≥10dB → 최대 거리 (기출 <strong>③ 16km</strong> 등)</td></tr>
     <tr><th class="hint-th">지문힌트</th><td>
       <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 경로 감쇄·거리)</p>
@@ -480,32 +500,112 @@
         <tr><td>「최대 거리」「통신 가능 거리」+ SNR/dB 조건</td><td>허용 감쇄 ÷ (dB/km) → km</td></tr>
         <tr><td>송신·수신 <strong>전력 dBm</strong> 차이</td><td>감쇄(dB) = 차이 (같은 단위끼리)</td></tr>
       </table>
-      <p class="hint-avoid">❌ 피하기: 「채널 용량·SNR으로 bps」→ <strong>섀넌</strong> · 「파장·안테나 cm」→ 7번</p>
+      <p class="hint-avoid">❌ 피하기: 「채널 용량·SNR으로 bps」→ <strong>섀넌</strong> · 「Vout/Vin 전압비」→ <strong>12번</strong> · 「dBm 정의」→ <strong>14번</strong></p>
     </td></tr>
   </table>
 </div>
 
-<h2 id="cheat">공식 암기용 요약표 (휴대용)</h2>
+<h2 id="f12">12. 전압 dB <span class="freq reserve">★★☆</span><span class="tag-reserve">예비</span></h2>
+<div class="formula-card">
+  <div class="formula-main">전압 dB = 20 × log₁₀(V<sub>out</sub> / V<sub>in</sub>)</div>
+  <table class="detail">
+    <tr><th>변수</th><td>
+      <ul class="var-list">
+        <li><strong>V<sub>out</sub>, V<sub>in</sub></strong> — 출력·입력 <strong>전압</strong> [V] (같은 임피던스 가정)</li>
+        <li><strong>20</strong> — 전압(진폭)은 전력 dB의 <strong>2배</strong> 계수 (전력 ∝ V²)</li>
+      </ul>
+    </td></tr>
+    <tr><th>구분</th><td><strong>전력</strong> dB → <strong>10</strong>·log(P₁/P₂) (11번) · <strong>전압</strong> dB → <strong>20</strong>·log(V₁/V₂) (이번)</td></tr>
+    <tr><th>예</th><td>V<sub>out</sub>/V<sub>in</sub>=10 → <strong>20 dB</strong> · 2배 → <strong>6 dB</strong> · ½ → <strong>−6 dB</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (전압·진폭 dB)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「전압」「진폭」「Vout/Vin」「dB(V)」</td><td>계수 <strong>20</strong></td></tr>
+        <tr><td>증폭기·감쇠기 <strong>전압 이득</strong></td><td>20·log(이득)</td></tr>
+        <tr><td>전력·와트·dBm·dBW</td><td>→ <strong>10</strong>·log 또는 <strong>14번 dBm</strong></td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「송신전력 W」「dBm」만 → 14번 · 「경로 km·dB/km」→ 11번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f13">13. AM 변조 지수 μ <span class="freq reserve">★★☆</span><span class="tag-reserve">예비</span></h2>
+<div class="formula-card">
+  <div class="formula-main">μ = (V<sub>max</sub> − V<sub>min</sub>) / (V<sub>max</sub> + V<sub>min</sub>)</div>
+  <table class="detail">
+    <tr><th>변수</th><td>
+      <ul class="var-list">
+        <li><strong>μ</strong> — 변조 지수 (0~1, 과변조 &gt;1)</li>
+        <li><strong>V<sub>max</sub>, V<sub>min</sub></strong> — 변조된 포락선(Envelope)의 최대·최소 전압</li>
+      </ul>
+    </td></tr>
+    <tr><th>설명</th><td>AM: 반송파 진폭을 메시지에 비례해 변화 · μ=1 정변조 · μ&gt;1 과변조(왜곡)</td></tr>
+    <tr><th>예</th><td>V<sub>max</sub>=8V, V<sub>min</sub>=2V → μ=(8−2)/(8+2)=<strong>0.6</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (AM μ)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「AM」「진폭 변조」「Amplitude Modulation」</td><td>μ 공식 후보</td></tr>
+        <tr><td>「변조 지수」「modulation index」</td><td>μ 구하기</td></tr>
+        <tr><td>포락선 최대·최소 전압 둘 다 제시</td><td>(V<sub>max</sub>−V<sub>min</sub>)/(V<sub>max</sub>+V<sub>min</sub>)</td></tr>
+        <tr><td>「과변조」「정변조」</td><td>μ&gt;1 vs μ=1 판별</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「PCM 2ⁿ 레벨」「Δ 간격」→ 4번 · 「QAM·baud」→ 3번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f14">14. dBm (전력 기준) <span class="freq">★★★</span><span class="tag-reserve">보강</span></h2>
+<div class="formula-card">
+  <div class="formula-main">P<sub>dBm</sub> = 10 × log₁₀(P / 1 mW)</div>
+  <table class="detail">
+    <tr><th>변수</th><td>
+      <ul class="var-list">
+        <li><strong>P</strong> — 실제 전력 [W] 또는 [mW]</li>
+        <li><strong>1 mW</strong> — dBm 기준(0 dBm = 1 mW)</li>
+        <li><strong>P<sub>dBm</sub></strong> — dBm 값 (전력의 dB 표현)</li>
+      </ul>
+    </td></tr>
+    <tr><th>암기</th><td>1 mW=<strong>0 dBm</strong> · 10 mW=<strong>10 dBm</strong> · 1 W=<strong>30 dBm</strong> · dBm 차이 = 전력 dB(10·log 비율)</td></tr>
+    <tr><th>연계</th><td>섀넌·경로문제: <strong>13 dBm − 3 dBm = 10 dB</strong> → 선형 SNR=10 (2번·11번과 함께)</td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (dBm)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「dBm」</td><td>1 mW 기준 전력 · <strong>10</strong>·log(P/1mW)</td></tr>
+        <tr><td>송신·수신 전력이 dBm으로 주어짐</td><td>차이(dB) = SNR(dB) 또는 감쇄(dB)로 사용</td></tr>
+        <tr><td>「mW」「W」→ dBm 변환</td><td>단위 맞춘 뒤 log</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「전압 V」「Vout/Vin」→ <strong>12번(계수 20)</strong> · 무잡음·대역폭 bps → 1번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="cheat">공식 암기용 요약표 (14개 · 출제 빈도)</h2>
 <table class="cheat">
   <thead>
-    <tr><th>#</th><th>공식</th><th>용도</th></tr>
+    <tr><th>#</th><th>공식</th><th>용도</th><th class="col-freq">출제</th></tr>
   </thead>
   <tbody>
-    <tr><td>1</td><td><code>R = 2Bn</code></td><td>나이퀴스트 (무잡음)</td></tr>
-    <tr><td>2</td><td><code>C = B log₂(1+SNR)</code></td><td>섀넌 (잡음)</td></tr>
-    <tr><td>3</td><td><code>bps = baud × n</code></td><td>변조·심볼↔비트</td></tr>
-    <tr><td>4</td><td><code>Δ = (Vmax−Vmin)/2ⁿ</code></td><td>PCM 간격</td></tr>
-    <tr><td>5</td><td><code>bit/s = frame/s × bit/frame</code></td><td>TDM</td></tr>
-    <tr><td>6</td><td><code>R = Nn / T</code></td><td>OFDM</td></tr>
-    <tr><td>7</td><td><code>λ=c/f, L∝1/f</code></td><td>파장·안테나</td></tr>
-    <tr><td>8</td><td><code>(총BW/채널BW)/재사용</code></td><td>FDMA 셀</td></tr>
-    <tr><td>9</td><td><code>N×데이터+(N−1)×guard</code></td><td>FHSS, N=2ⁿ</td></tr>
-    <tr><td>10</td><td><code>검출=d−1, 정정=⌊(d−1)/2⌋</code></td><td>해밍</td></tr>
-    <tr><td>11</td><td><code>10log(P1/P2)</code></td><td>감쇄 dB</td></tr>
+    <tr><td>1</td><td><code>R = 2Bn</code></td><td>나이퀴스트 (무잡음)</td><td class="col-freq">★★★★★</td></tr>
+    <tr><td>2</td><td><code>C = B log₂(1+SNR)</code></td><td>섀넌 (잡음)</td><td class="col-freq">★★★★★</td></tr>
+    <tr><td>3</td><td><code>bps = baud × n</code></td><td>심볼율↔비트율</td><td class="col-freq">★★★★★</td></tr>
+    <tr><td>4</td><td><code>Δ = (Vmax−Vmin)/2ⁿ</code></td><td>PCM 간격</td><td class="col-freq">★★★★</td></tr>
+    <tr><td>5</td><td><code>bit/s = frame/s × bit/frame</code></td><td>TDM 비트율</td><td class="col-freq">★★★★</td></tr>
+    <tr><td>6</td><td><code>R = Nn / T</code></td><td>OFDM 전송율</td><td class="col-freq">★★★</td></tr>
+    <tr><td>7</td><td><code>λ=c/f, L∝1/f</code></td><td>안테나·파장</td><td class="col-freq">★★★</td></tr>
+    <tr><td>8</td><td><code>(총BW/채널BW)/재사용</code></td><td>FDMA 셀</td><td class="col-freq">★★★</td></tr>
+    <tr><td>9</td><td><code>2ⁿ×(데이터+guard)</code></td><td>FHSS 대역폭</td><td class="col-freq">★★★</td></tr>
+    <tr><td>10</td><td><code>d_min, 검출=d−1, 정정=⌊(d−1)/2⌋</code></td><td>해밍</td><td class="col-freq">★★★</td></tr>
+    <tr><td>11</td><td><code>10log(P1/P2), 거리2배→6dB</code></td><td>경로 감쇄</td><td class="col-freq">★★★</td></tr>
+    <tr><td>12</td><td><code>20log(Vout/Vin)</code></td><td>전압 dB (예비)</td><td class="col-freq">★★☆</td></tr>
+    <tr><td>13</td><td><code>μ=(Vmax−Vmin)/(Vmax+Vmin)</code></td><td>AM 변조지수 (예비)</td><td class="col-freq">★★☆</td></tr>
+    <tr><td>14</td><td><code>10log(P/1mW) dBm</code></td><td>전력 dBm (보강)</td><td class="col-freq">★★★</td></tr>
   </tbody>
 </table>
 
-<p class="exam-tag">※ 잡음 없음 → <strong>① 나이퀴스트</strong> / 잡음·S/N → <strong>② 섀넌</strong> 먼저 구분</p>
+<p class="exam-tag">※ 잡음 없음 → <strong>①</strong> / 잡음·S/N → <strong>②</strong> · baud+bps → <strong>③</strong> · 전력 dB/dBm → <strong>⑪·⑭</strong> · 전압 dB → <strong>⑫</strong></p>
 
 </body>
 </html>
