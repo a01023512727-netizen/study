@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>통신공학 군무원 기출 — 학습 노트</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+      --accent: #2563eb;
+      --tip-bg: #eff6ff;
+      --warn-bg: #fff7ed;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Pretendard", "Malgun Gothic", sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 { font-size: 1.6rem; border-bottom: 2px solid var(--accent); padding-bottom: .5rem; }
+    h2 { font-size: 1.25rem; margin-top: 2.5rem; color: var(--accent); }
+    h3 { font-size: 1.05rem; margin-top: 1.5rem; }
+    blockquote {
+      background: var(--tip-bg);
+      border-left: 4px solid var(--accent);
+      margin: 1rem 0;
+      padding: .75rem 1rem;
+      font-size: .95rem;
+    }
+    .print-hint {
+      background: var(--warn-bg);
+      border: 1px solid #fdba74;
+      border-radius: 8px;
+      padding: .75rem 1rem;
+      font-size: .9rem;
+      margin-bottom: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .95rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: .5rem .75rem;
+      text-align: left;
+    }
+    th { background: #f0f0f0; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+    .tags { color: var(--muted); font-size: .85rem; }
+    .memo {
+      background: #f5f5f5;
+      border: 1px dashed var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      min-height: 80px;
+      font-family: monospace;
+    }
+    .formula-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+      text-align: center;
+      font-family: "Consolas", "Malgun Gothic", monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.02em;
+      line-height: 1.8;
+    }
+    .formula-box .note {
+      display: block;
+      font-family: "Pretendard", "Malgun Gothic", sans-serif;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.5rem;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+      font-family: Consolas, monospace;
+    }
+    .concept-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: .95rem;
+    }
+    .concept-box h4 {
+      margin: 0 0 .75rem;
+      color: var(--accent);
+      font-size: 1rem;
+    }
+    .concept-box h5 {
+      margin: 1rem 0 .4rem;
+      font-size: .95rem;
+    }
+    .formula-legend {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0;
+      font-size: 0.9rem;
+    }
+    .formula-legend th, .formula-legend td {
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.6rem;
+      text-align: left;
+    }
+    .formula-legend th { background: #f0f0f0; }
+    .exam-problem {
+      background: #fff;
+      border: 2px solid #333;
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0 1.5rem;
+      font-size: 1rem;
+      line-height: 1.85;
+    }
+    .exam-problem .q-num {
+      font-weight: 700;
+      margin-right: 0.25rem;
+    }
+    .exam-problem .formula-inline {
+      font-family: Consolas, "Malgun Gothic", monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.02em;
+    }
+    .exam-problem ol.options {
+      margin: 1rem 0 0 1.25rem;
+      padding: 0;
+    }
+    .exam-problem ol.options li {
+      margin-bottom: 0.35rem;
+      list-style: none;
+      margin-left: 0;
+      padding-left: 0;
+    }
+    ol li { margin-bottom: .4rem; }
+    .year-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1.25rem 0 1.5rem;
+      padding: 0.5rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .year-tab {
+      font-family: inherit;
+      font-size: 0.95rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .year-tab:hover { background: var(--tip-bg); border-color: var(--accent); }
+    .year-tab.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    .year-section {
+      scroll-margin-top: 5rem;
+      padding-top: 0.5rem;
+    }
+    .year-section > .year-heading {
+      font-size: 1.1rem;
+      color: var(--muted);
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    .btn-similar {
+      font-family: inherit;
+      font-size: 0.85rem;
+      padding: 0.35rem 0.75rem;
+      margin-left: 0.5rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--tip-bg);
+      color: var(--accent);
+      cursor: pointer;
+      vertical-align: middle;
+    }
+    .btn-similar:hover { background: var(--accent); color: #fff; }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,.45);
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.5rem 1.75rem;
+      max-width: 360px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(0,0,0,.2);
+    }
+    .modal-box h3 { margin: 0 0 0.75rem; font-size: 1.1rem; color: var(--accent); }
+    .modal-box p { margin: 0 0 1rem; font-size: 0.9rem; color: var(--muted); }
+    .modal-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .modal-actions button {
+      font-family: inherit;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .modal-link-2024 {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+    }
+    .modal-link-2024:hover { filter: brightness(1.08); }
+    .modal-close {
+      background: #fff;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.25rem;
+    }
+    .title-row h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      flex: 1;
+      min-width: 12rem;
+      border: none;
+      padding: 0;
+    }
+    .btn-formula-sheet {
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .btn-formula-sheet:hover { filter: brightness(1.08); }
+    @media print {
+      .year-tabs, .btn-similar, .modal-overlay, .btn-formula-sheet { display: none !important; }
+      body { background: #fff; padding: 0; max-width: 100%; }
+      .print-hint { display: none; }
+      .year-tabs { position: static; box-shadow: none; }
+      h2 { page-break-before: auto; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="title-row">
+  <h1>통신공학 군무원 기출 — 학습 노트</h1>
+  <a class="btn-formula-sheet" href="./통신공학-기출-계산공식.html">계산식 보기</a>
+</div>
+
+<nav class="year-tabs" aria-label="기출 연도">
+  <button type="button" class="year-tab active" data-section="section-2024">2024 기출</button>
+  <button type="button" class="year-tab" data-section="section-2025">2025 기출</button>
+  <button type="button" class="year-tab" data-section="section-legacy">전체 (1~11)</button>
+</nav>
+
+<hr>
+
+<div id="section-legacy" class="year-section">
+
+<h2 id="problem-1">문제 1 — 복합신호의 주파수 성분 (주파수 영역)</h2>
+<p class="tags"><strong>출처:</strong> 기출 이미지 1번 &nbsp;|&nbsp; <strong>태그:</strong> #푸리에 #주파수변환 #정현파 #DC성분</p>
+
+<h3>문제</h3>
+<p>신호</p>
+<div class="formula-box">
+  s(t) = 5 + 3·sin(40πt) + 4·sin(100πt) + 7·sin(300πt)
+</div>
+<p>는 주파수가 다른 정현파들이 합쳐진 복합신호이다.</p>
+<p>다음 보기 중 s(t)를 <strong>주파수 영역</strong>에 표현했을 때 나타나는 주파수값(Hz)에 <strong>해당하지 않는</strong> 것은?</p>
+
+<table>
+  <tr><th>보기</th><th>주파수 (Hz)</th></tr>
+  <tr><td>①</td><td>20</td></tr>
+  <tr><td>②</td><td>150</td></tr>
+  <tr><td>③</td><td>0</td></tr>
+  <tr><td>④</td><td>100</td></tr>
+</table>
+
+<div class="concept-box">
+  <h4>배경지식 — 푸리에(Fourier)란?</h4>
+  <p><strong>한 줄:</strong> 푸리에 = 신호 s(t)를 <strong>「몇 Hz 성분이 섞였는지」</strong>로 쪼개 보는 방법.</p>
+
+  <h5>왜 나오나?</h5>
+  <p>1번 문제처럼 식이 <strong>이미 sin(...) + 상수</strong> 형태이면, 굳이 어려운 공식 없이 <strong>항마다 Hz만 읽으면</strong> 됩니다.<br>
+  시험 지문에 <strong>「주파수 영역에 표현」</strong>이라고 쓰면 → <strong>푸리에(주파수 변환) 문제</strong>라고 보면 됩니다.</p>
+
+  <h5>핵심 아이디어</h5>
+  <ul>
+    <li><strong>어떤 신호든</strong> (복잡해 보여도) <strong>정현파(sin/cos) 여러 개를 더하면</strong> 만들 수 있다.</li>
+    <li><strong>푸리에 분석</strong> = 합쳐진 신호를 <strong>다시 sin/cos(=Hz) 단위로 분해</strong>하는 것.</li>
+  </ul>
+
+  <h5>비유 — 교향악</h5>
+  <table>
+    <tr><th></th><th>시간 영역</th><th>주파수 영역 (푸리에)</th></tr>
+    <tr><td>비유</td><td><strong>지금 들리는 전체 소리</strong></td><td><strong>도·라·미 각각 몇 Hz인지</strong></td></tr>
+    <tr><td>1번 문제</td><td>s(t) = 5 + sin 3개</td><td><strong>0, 20, 50, 150 Hz</strong></td></tr>
+  </table>
+
+  <h5>신호 vs Hz (다시 정리)</h5>
+  <table>
+    <tr><th></th><th>신호 s(t)</th><th>Hz</th></tr>
+    <tr><td>뭐냐</td><td>시간에 따라 변하는 <strong>값</strong></td><td>출렁임 <strong>1초에 몇 번</strong></td></tr>
+    <tr><td>1번 예</td><td>전체 식 (5 + sin…)</td><td>각 sin의 <strong>주파수 라벨</strong></td></tr>
+    <tr><td><strong>5</strong></td><td>신호 있음 (직류)</td><td><strong>0 Hz</strong> (출렁임 없음)</td></tr>
+    <tr><td><strong>3·sin(40πt)</strong></td><td>출렁이는 신호</td><td><strong>20 Hz</strong> (3은 진폭, Hz 아님)</td></tr>
+  </table>
+
+  <h5>태그와 연결</h5>
+  <table>
+    <tr><th>태그</th><th>이 문제에서</th></tr>
+    <tr><td><strong>#푸리에</strong></td><td>s(t) → Hz 목록으로 바꾸는 <strong>이론·유형</strong></td></tr>
+    <tr><td><strong>#주파수변환</strong></td><td>시간 영역 → 주파수 영역</td></tr>
+    <tr><td><strong>#정현파</strong></td><td>sin(...) 3개 = 출렁이는 성분</td></tr>
+    <tr><td><strong>#DC성분</strong></td><td><strong>5</strong> = 직류, <strong>0 Hz</strong></td></tr>
+  </table>
+
+  <h5>시험용 — 이것만 기억</h5>
+  <ol>
+    <li><strong>「주파수 영역」</strong> → sin 항마다 Hz 찾기 + 상수는 <strong>0 Hz</strong></li>
+    <li><strong>sin(Nπt)</strong> → <strong>f = N ÷ 2</strong> Hz</li>
+    <li><strong>새 Hz는 생기지 않음</strong> — 식에 있는 성분 Hz만 스펙트럼에 찍힘</li>
+    <li><strong>푸리에 적분·공식 전체</strong>는 군무원 기출 1번 수준에선 <strong>안 나옴</strong> (분해·읽기만)</li>
+  </ol>
+</div>
+
+<hr>
+
+<h3>1단계 — 문제가 묻는 것 정리</h3>
+<ul>
+  <li>시간 영역 s(t) → <strong>주파수 영역</strong>으로 옮겼을 때 <strong>어떤 Hz가 스펙트럼에 찍히는지</strong> 찾는 문제입니다.</li>
+  <li>보기 네 개 중 <strong>「안 나오는」 주파수 하나</strong>를 고릅니다. (나오는 것 찾기가 아님)</li>
+</ul>
+
+<h3>2단계 — 식을 네 덩어리로 쪼개기</h3>
+<table>
+  <tr><th>덩어리</th><th>형태</th><th>역할</th></tr>
+  <tr><td>①</td><td><strong>5</strong> (상수)</td><td>직류(DC) 성분</td></tr>
+  <tr><td>②</td><td>3·sin(40πt)</td><td>정현파 1</td></tr>
+  <tr><td>③</td><td>4·sin(100πt)</td><td>정현파 2</td></tr>
+  <tr><td>④</td><td>7·sin(300πt)</td><td>정현파 3</td></tr>
+</table>
+<p><strong>팁:</strong> 「복합신호」= 여러 주파수가 <strong>더해진</strong> 신호 → 주파수 영역에서는 <strong>각 성분의 Hz만</strong> 남습니다 (다른 Hz는 새로 생기지 않음).</p>
+
+<h3>3단계 — 암기 공식 (노베이스용)</h3>
+<p>정현파 일반형:</p>
+<div class="formula-box">
+  sin(ωt)  ↔  ω = 2πf
+  <span class="note">읽기: 「sin(오메가 t) ↔ 오메가는 2파이 f」</span>
+</div>
+<p><strong>Hz로 바꾸기:</strong></p>
+<div class="formula-box">
+  f = ω ÷ (2π) = (t 앞 계수) ÷ (2π)
+  <span class="note">예: t 앞이 40π이면 → f = 40π ÷ 2π = 20 Hz</span>
+</div>
+<p><strong>암기 한 줄:</strong> 「t 앞에 붙은 <strong>π 포함 숫자</strong>」를 <strong>2π</strong>로 나누면 <strong>Hz</strong></p>
+<p><strong>더 쉬운 암기:</strong> sin(<strong>N</strong>π·t) → f = <strong>N ÷ 2</strong> Hz &nbsp;(π는 약분)</p>
+
+<table>
+  <tr><th>식 안의 t 계수</th><th>계산</th><th>f (Hz)</th></tr>
+  <tr><td>40π</td><td>40π ÷ 2π</td><td>20</td></tr>
+  <tr><td>100π</td><td>100π ÷ 2π</td><td>50</td></tr>
+  <tr><td>300π</td><td>300π ÷ 2π</td><td>150</td></tr>
+</table>
+
+<h3>4단계 — 상수 5는 몇 Hz?</h3>
+<ul>
+  <li>시간에 따라 <strong>안 변하는 값</strong> = <strong>0 Hz (DC)</strong></li>
+  <li>주파수 영역에서 <strong>0 Hz 위치</strong>에 한 줄(스파이크)로 나타납니다.</li>
+</ul>
+<p><strong>암기:</strong> 상수만 있으면 → <strong>0 Hz</strong> (③ 보기와 연결해 볼 것)</p>
+
+<h3>5단계 — 직접 풀기 체크리스트</h3>
+<p>아래 표를 <strong>직접</strong> 채운 뒤, 보기 ①~④와 대조하세요.</p>
+<table>
+  <tr><th>성분</th><th>t 앞 계수 (ω)</th><th>f = ω ÷ (2π) (Hz)</th><th>주파수 영역에 나옴?</th></tr>
+  <tr><td>5</td><td>(DC)</td><td>?</td><td></td></tr>
+  <tr><td>3·sin(40πt)</td><td>40π</td><td>?</td><td></td></tr>
+  <tr><td>4·sin(100πt)</td><td>100π</td><td>?</td><td></td></tr>
+  <tr><td>7·sin(300πt)</td><td>300π</td><td>?</td><td></td></tr>
+</table>
+<p><strong>마지막 질문:</strong> 위에서 나온 Hz 목록에 <strong>없는</strong> 보기 번호는?</p>
+
+<h3>6단계 — 실수 방지 팁</h3>
+<ol>
+  <li><strong>π를 Hz로 바꿀 때</strong> 2π로 나누는 것을 빼먹지 않기 (40이 아니라 20이 되는 이유).</li>
+  <li><strong>sin(100πt)</strong> → f는 100이 <strong>아님</strong> (보기 ④와 헷갈리기 쉬움).</li>
+  <li><strong>「해당하지 않는 것」</strong> → 계산한 목록에 <strong>없는</strong> 보기를 고르기.</li>
+  <li>시험장 손계산: <code>40π ÷ 2π = 20</code> 처럼 <strong>π는 약분</strong>되게 쓰면 빠릅니다.</li>
+</ol>
+
+<h3>7단계 — 비슷한 기출 패턴</h3>
+<ul>
+  <li>A + B·sin(ω₁t) + C·sin(ω₂t) 형태 → <strong>항마다 Hz 하나씩</strong>만 보면 됨.</li>
+  <li>「가장 높은/낮은 주파수」, 「기본 주파수」, 「대역폭」도 같은 변환을 씁니다.</li>
+</ul>
+
+<h3>내 풀이 메모 (직접 작성)</h3>
+<div class="memo">(여기에 계산 과정·선택 보기 적기)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ④ 100 Hz --></p>
+
+<hr>
+
+<h2 id="problem-2">문제 2 — 전송 매체의 신호 전송 손상 요인</h2>
+<p class="tags"><strong>출처:</strong> 기출 2번 &nbsp;|&nbsp; <strong>태그:</strong> #전송손상 #감쇠 #잡음 #왜곡 #채널용량</p>
+
+<h3>문제</h3>
+<p>통신 신호가 목적지까지 전달되는 과정에서 <strong>전송 매체에서 발생할 수 있는 신호 전송 손상의 요인</strong>으로 <strong>가장 적절하지 않은</strong> 것은?</p>
+
+<table>
+  <tr><th>보기</th><th>항목</th></tr>
+  <tr><td>①</td><td>채널전송용량 (Channel Capacity)</td></tr>
+  <tr><td>②</td><td>잡음 (Noise)</td></tr>
+  <tr><td>③</td><td>지연 왜곡 (Delay Distortion)</td></tr>
+  <tr><td>④</td><td>감쇠 현상 (Attenuation)</td></tr>
+</table>
+
+<div class="concept-box">
+  <h4>배경지식 — 전송 손상(Transmission Impairment)이란?</h4>
+  <p><strong>한 줄:</strong> 신호가 매체를 지나며 <strong>망가지·약해지·뒤틀리게 만드는 요인</strong>.</p>
+
+  <h5>시험용 3대 손상 (암기)</h5>
+  <table>
+    <tr><th>손상</th><th>한글</th><th>뭐가 일어나나</th><th>비유</th></tr>
+    <tr><td><strong>Attenuation</strong></td><td><strong>감쇠</strong></td><td>멀어질수록 <strong>세기 약해짐</strong></td><td>멀리서 들으면 소리 작아짐</td></tr>
+    <tr><td><strong>Distortion</strong></td><td><strong>왜곡</strong></td><td><strong>모양·시간</strong>이 변함</td><td>목소리가 찢어져 들림</td></tr>
+    <tr><td><strong>Noise</strong></td><td><strong>잡음</strong></td><td><strong>원치 않는 신호</strong>가 섞임</td><td>라디오 지지직 소리</td></tr>
+  </table>
+  <p><strong>지연 왜곡(Delay Distortion)</strong> = <strong>왜곡</strong>의 한 종류 (주파수마다 도달 시간 차이)</p>
+
+  <h5>채널전송용량은?</h5>
+  <p><strong>채널전송용량</strong> = 매체가 <strong>얼마나 많은 정보를 실을 수 있는지(한계·능력)</strong><br>
+  → <strong>손상이 아니라 통로의 성능</strong> — 「신호를 망가뜨리는 요인」과 구분</p>
+  <p><strong>암기:</strong> 손상 3형제 = <strong>감쇠 + 왜곡 + 잡음</strong> / <strong>용량 = 손상 X</strong></p>
+</div>
+
+<h3>1단계 — 문제가 묻는 것 정리</h3>
+<ul>
+  <li><strong>「적절하지 않은 것」</strong> = 손상 요인 <strong>아닌</strong> 보기 1개</li>
+  <li>②③④가 전형적 손상이면 → 남는 보기 확인</li>
+</ul>
+
+<h3>2단계 — 보기 하나씩 판별</h3>
+<table>
+  <tr><th>보기</th><th>손상?</th><th>이유 (한 줄)</th></tr>
+  <tr><td>② 잡음</td><td><strong>O</strong></td><td>불필요한 신호가 섞여 원 신호 훼손</td></tr>
+  <tr><td>③ 지연 왜곡</td><td><strong>O</strong></td><td>왜곡의 일종 — 도착 시간 차이</td></tr>
+  <tr><td>④ 감쇠</td><td><strong>O</strong></td><td>거리·매체에 따라 신호 세기 감소</td></tr>
+  <tr><td>① 채널전송용량</td><td><strong>?</strong></td><td>채널 <strong>한계·능력</strong> — 손상과 다른 개념</td></tr>
+</table>
+
+<h3>3단계 — 실수 방지 팁</h3>
+<ol>
+  <li><strong>용량(Capacity)</strong> vs <strong>손상(Impairment)</strong> — 다른 개념</li>
+  <li><strong>지연 왜곡</strong> — 이름에 «왜곡» → 손상 O</li>
+  <li><strong>「적절하지 않은」</strong> = <strong>아닌 것</strong> 고르기</li>
+</ol>
+
+<h3>4단계 — 비슷한 기출 패턴</h3>
+<ul>
+  <li>손상 3가지 + <strong>대역폭·용량·변조</strong> 등 다른 개념을 섞어 출제</li>
+  <li>「전송 손상이 <strong>아닌</strong> 것은?」형 반복</li>
+</ul>
+
+<h3>내 풀이 메모 (직접 작성)</h3>
+<div class="memo">(여기에 선택 보기·이유 적기)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ① 채널전송용량 --></p>
+
+<hr>
+
+<h2 id="problem-3">문제 3 — 신호 부호화 비트 수 (나이퀴스트)</h2>
+<p class="tags"><strong>출처:</strong> 기출 3번 &nbsp;|&nbsp; <strong>태그:</strong> #나이퀴스트 #대역폭 #전송률 #부호화비트 #잡음없음 &nbsp;|&nbsp; <strong>유사:</strong> <a href="#q2024-12">2024 기출 12번</a></p>
+
+<h3>문제</h3>
+<p>통신채널에서 <strong>잡음이 없다</strong>고 가정하고, <strong>대역폭 200 Hz</strong>, <strong>최대전송률 3,200 bps</strong>로 전송할 때, <strong>요구되는 신호 부호화 비트 수</strong>는?</p>
+
+<table>
+  <tr><th>보기</th><th>비트 수</th></tr>
+  <tr><td>①</td><td>2</td></tr>
+  <tr><td>②</td><td>4</td></tr>
+  <tr><td>③</td><td>8</td></tr>
+  <tr><td>④</td><td>1</td></tr>
+</table>
+
+<div class="concept-box">
+  <h4>배경지식 — 잡음 없음 → 나이퀴스트</h4>
+  <table>
+    <tr><th>조건</th><th>공식</th><th>핵심</th></tr>
+    <tr><td><strong>잡음 없음</strong></td><td><strong>나이퀴스트</strong></td><td>R = 2B × n</td></tr>
+    <tr><td>잡음 있음</td><td>섀넌</td><td>R = B·log₂(1+S/N)</td></tr>
+  </table>
+  <p><strong>B</strong> = 대역폭 (Hz) = 200 &nbsp;/&nbsp; <strong>R</strong> = 전송률 (bps) = 3,200 &nbsp;/&nbsp; <strong>n</strong> = 부호화 비트 수 (구함)</p>
+  <p><strong>암기:</strong> 「잡음 없다」→ <strong>나이퀴스트</strong> / 「<strong>2B</strong>」확인</p>
+</div>
+
+<h3>1단계 — 공식</h3>
+<div class="formula-box">
+  R = 2 × B × n
+  <span class="note">3,200 = 2 × 200 × n</span>
+</div>
+
+<h3>2단계 — 계산</h3>
+<div class="formula-box">
+  2 × 200 = 400
+  <span class="note">n = 3,200 ÷ 400 = 8</span>
+</div>
+
+<h3>3단계 — 보기 검산</h3>
+<table>
+  <tr><th>보기</th><th>n</th><th>R = 400 × n</th></tr>
+  <tr><td>①</td><td>2</td><td>800 bps</td></tr>
+  <tr><td>②</td><td>4</td><td>1,600 bps</td></tr>
+  <tr><td>③</td><td>8</td><td><strong>3,200 bps</strong></td></tr>
+  <tr><td>④</td><td>1</td><td>400 bps</td></tr>
+</table>
+
+<h3>4단계 — 실수 방지</h3>
+<ol>
+  <li><strong>잡음 없음</strong> → 섀넌 X, <strong>나이퀴스트</strong></li>
+  <li><strong>2B</strong>의 <strong>2</strong> 빼먹지 않기</li>
+  <li>3200÷200=16 (X) → <strong>3200÷400=8</strong></li>
+</ol>
+
+<h3>5단계 — 비슷한 패턴</h3>
+<ul>
+  <li>B, R 주고 <strong>n 구하기</strong></li>
+  <li>n, B 주고 <strong>R 구하기</strong></li>
+</ul>
+
+<h3>내 풀이 메모 (직접 작성)</h3>
+<div class="memo">(계산·선택 보기)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ③ 8 --></p>
+
+<hr>
+
+<h2 id="problem-4">문제 4 — 변조방식 판별 (baud · bps)</h2>
+<p class="tags"><strong>출처:</strong> 기출 4번 &nbsp;|&nbsp; <strong>태그:</strong> #변조 #baud #bps #QAM #PSK</p>
+
+<h3>문제</h3>
+<p><strong>변조속도 2,400 baud</strong>, <strong>데이터전송률 9,600 bps</strong>일 때, 적용된 변조방식으로 가장 적절한 것은?</p>
+
+<table>
+  <tr><th>보기</th><th>변조방식</th></tr>
+  <tr><td>①</td><td>QPSK</td></tr>
+  <tr><td>②</td><td>16-QAM</td></tr>
+  <tr><td>③</td><td>8-QAM</td></tr>
+  <tr><td>④</td><td>BPSK</td></tr>
+</table>
+
+<div class="concept-box">
+  <h4>배경지식 — baud vs bps</h4>
+  <table>
+    <tr><th>용어</th><th>뜻</th><th>단위</th></tr>
+    <tr><td><strong>baud</strong></td><td>1초에 보내는 <strong>부호(심볼) 수</strong></td><td>baud</td></tr>
+    <tr><td><strong>bps</strong></td><td>1초에 보내는 <strong>비트 수</strong></td><td>bps</td></tr>
+  </table>
+  <div class="formula-box" style="margin-top:.75rem;">
+    bps = baud × n
+    <span class="note">9,600 = 2,400 × n &nbsp;→&nbsp; n = 부호당 비트 수</span>
+  </div>
+</div>
+
+<h3>1단계 — n 구하기</h3>
+<div class="formula-box">
+  n = 9,600 ÷ 2,400 = 4 (비트/부호)
+</div>
+
+<h3>2단계 — 참고표: 비트 수 ↔ 상태 수</h3>
+<p><strong>공식:</strong> n비트 → 상태 수 <strong>2ⁿ</strong> &nbsp;|&nbsp; <strong>bps = baud × n</strong></p>
+<table>
+  <tr><th>부호당 비트 (n)</th><th>상태 수 (2ⁿ)</th><th>예시 변조 (이름)</th></tr>
+  <tr><td>1</td><td>2</td><td>BPSK</td></tr>
+  <tr><td>2</td><td>4</td><td>QPSK</td></tr>
+  <tr><td>3</td><td>8</td><td>8-QAM</td></tr>
+  <tr><td><strong>4</strong></td><td><strong>16</strong></td><td><strong>16-QAM</strong> ← 4번 정답</td></tr>
+  <tr><td>5</td><td>32</td><td>32-QAM 등</td></tr>
+  <tr><td>6</td><td>64</td><td>64-QAM 등</td></tr>
+  <tr><td>7</td><td>128</td><td>128-QAM …</td></tr>
+  <tr><td>8</td><td>256</td><td>256-QAM …</td></tr>
+</table>
+<p><strong>암기:</strong> 8→3비트, 16→4비트, 32→5비트 (log₂) / 기출 보기는 보통 <strong>1~4비트</strong></p>
+<p><strong>읽는 법:</strong> BPSK, QPSK, 8-QAM·16-QAM(큐엠)</p>
+
+<h3>3단계 — 보기 검산</h3>
+<table>
+  <tr><th>보기</th><th>n</th><th>bps (= 2400 × n)</th></tr>
+  <tr><td>① QPSK</td><td>2</td><td>4,800</td></tr>
+  <tr><td>② 16-QAM</td><td>4</td><td><strong>9,600</strong></td></tr>
+  <tr><td>③ 8-QAM</td><td>3</td><td>7,200</td></tr>
+  <tr><td>④ BPSK</td><td>1</td><td>2,400</td></tr>
+</table>
+
+<h3>4단계 — 실수 방지</h3>
+<ol>
+  <li><strong>9600 ÷ 2400 = 4</strong> 먼저 구하기</li>
+  <li>QPSK = 2비트 (4비트 아님)</li>
+  <li><strong>16-QAM</strong> → 16상태 → <strong>4비트</strong></li>
+</ol>
+
+<h3>내 풀이 메모 (직접 작성)</h3>
+<div class="memo">(계산·선택 보기)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ② 16-QAM --></p>
+
+<hr>
+
+<h2 id="problem-5">문제 5 — PCM 양자화 레벨 간격</h2>
+<p class="tags"><strong>출처:</strong> 기출 5번 &nbsp;|&nbsp; <strong>태그:</strong> #PCM #양자화 #3비트</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">5.</span>
+    임의의 주파수 <em>f</em>를 갖는
+    <span class="formula-inline">s(t) = 8 sin 2πft</span> [V] 인 아날로그신호 <em>s(t)</em>를
+    PCM(Pulse Code Modulation) 방식으로 변조하였다.
+    여기서 양자화된 신호는 3비트로 부호화하였을 때, 양자화 레벨 간 간격 크기는?
+  </p>
+  <ol class="options">
+    <li>① 0.5 [V]</li>
+    <li>② 1.0 [V]</li>
+    <li>③ 1.5 [V]</li>
+    <li>④ 2.0 [V]</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>배경지식 — PCM · 양자화 (한 줄)</h4>
+  <ul>
+    <li><strong>3비트</strong> → L = <strong>2³ = 8</strong> 레벨</li>
+    <li>진폭 <strong>8 V</strong> → <strong>-8 ~ +8</strong> → 범위 <strong>16 V</strong></li>
+    <li><strong>Δ</strong> = 레벨 사이 간격 (계단 한 칸)</li>
+  </ul>
+</div>
+
+<div class="concept-box">
+  <h4>쉬운 설명</h4>
+
+  <h5>① 진폭 8 V → 범위 16 V</h5>
+  <pre style="background:#fff;padding:.75rem;border-radius:6px;font-size:.9rem;line-height:1.5;">
+  최고  +8 V
+        0 V
+  최저  -8 V
+  </pre>
+  <p><strong>범위</strong> = 8 - (-8) = <strong>16 V</strong></p>
+
+  <h5>② 3비트 → 2³ = 8 레벨</h5>
+  <p>3비트 = 8가지 코드 → 전압 <strong>8단계</strong>만.</p>
+
+  <h5>③ 이 문제 계산 — 16 ÷ 8 = 2.0 V</h5>
+  <div class="formula-box" style="margin:.5rem 0;">
+    Δ = (Vmax - Vmin) / L = 16 / 8 = 2.0 [V]
+    <span class="note">암기: Δ = 2A / 2ⁿ = 16 / 8 = 2</span>
+  </div>
+  <table>
+    <tr><th>계산</th><th>결과</th><th>보기</th></tr>
+    <tr><td><strong>16 ÷ 8</strong></td><td><strong>2.0 V</strong></td><td><strong>④ ✓</strong></td></tr>
+    <tr><td>16 ÷ 7</td><td>약 2.29 V</td><td>없음</td></tr>
+    <tr><td>14 ÷ 7 (7 sin 착각)</td><td>2.0 V</td><td>우연히 같음 — 원문은 8 sin</td></tr>
+  </table>
+
+  <h5>④ 예시 레벨 (Δ = 2 V)</h5>
+  <table>
+    <tr><th>레벨</th><th>전압</th><th>차이</th></tr>
+    <tr><td>1</td><td>-8</td><td rowspan="3">2 V</td></tr>
+    <tr><td>2</td><td>-6</td></tr>
+    <tr><td>3</td><td>-4</td></tr>
+    <tr><td colspan="3">… (총 8레벨)</td></tr>
+  </table>
+</div>
+
+<h3>1단계 — L = 8</h3>
+<div class="formula-box">L = 2³ = 8</div>
+
+<h3>2단계 — 간격 Δ</h3>
+<div class="formula-box">
+  Δ = 16 / 8 = 2.0 [V]
+</div>
+
+<h3>3단계 — 실수 방지</h3>
+<ol>
+  <li>원문 <strong>8 sin</strong> (7 sin X)</li>
+  <li>범위 <strong>16 V</strong></li>
+  <li><strong>16 ÷ 8 = 2</strong> → ④</li>
+</ol>
+
+<h3>내 풀이 메모 (직접 작성)</h3>
+<div class="memo">(계산·선택 보기)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ④ 2.0 [V] --></p>
+
+<hr>
+
+<h2 id="problem-6">문제 6 — 회선 이용 방식 (송수신)</h2>
+<p class="tags"><strong>출처:</strong> 기출 6번 &nbsp;|&nbsp; <strong>태그:</strong> #반이중 #단방향 #전이중</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">6.</span>
+    통신 회선 이용 방식 중 하나의 링크에 연결된 두 단말 장치는 데이터 송신과 수신을 할 수 있지만
+    <strong>동시에 할 수 없고</strong>, 데이터 송신과 수신 역할을 <strong>바꿔가며</strong> 통신하는 방식으로 적절한 것은?
+  </p>
+  <ol class="options">
+    <li>① 단방향(Simplex) 방식</li>
+    <li>② 반이중(Half-duplex) 방식</li>
+    <li>③ 전이중(Full-duplex) 방식</li>
+    <li>④ 병렬전송(Parallel transmission) 방식</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>암기표 — 송수신 방식</h4>
+  <table>
+    <tr><th>방식</th><th>동시 송수신</th><th>비유</th></tr>
+    <tr><td>단방향 Simplex</td><td>한 방향만</td><td>라디오 방송</td></tr>
+    <tr><td><strong>반이중 Half-duplex</strong></td><td><strong>X (번갈아)</strong></td><td><strong>무전기</strong></td></tr>
+    <tr><td>전이중 Full-duplex</td><td>O (동시)</td><td>전화</td></tr>
+    <tr><td>병렬전송</td><td colspan="2">듀플렉스와 다른 개념 (비트 여러 선)</td></tr>
+  </table>
+  <p><strong>암기:</strong> 동시 X + 바꿔가며 → <strong>반이중</strong> / 동시 O → 전이중 / 한 방향만 → 단방향</p>
+</div>
+
+<h3>지문 키워드</h3>
+<ul>
+  <li>송·수신 <strong>둘 다 O</strong> → 단방향 아님</li>
+  <li><strong>동시 X</strong> → 전이중 아님</li>
+  <li><strong>바꿔가며</strong> → <strong>② 반이중</strong></li>
+</ul>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(선택·이유)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ② 반이중 --></p>
+
+<hr>
+
+<h2>동기 TDM — 쉬운 설명 (7·8번 공통)</h2>
+<div class="concept-box">
+  <p><strong>한 줄:</strong> 여러 장치가 <strong>회선 1개</strong>를 <strong>시간으로 나눠</strong> 씀. <strong>동기 TDM</strong> = 매 프레임마다 <strong>장치마다 칸(슬롯) 고정</strong>.</p>
+
+  <h4>① 왜 TDM?</h4>
+  <p>케이블 1개 + 송신 장치 여러 대 → <strong>시간을 쪼개</strong> 번갈아 전송.</p>
+  <table>
+    <tr><th>방식</th><th>나누는 것</th><th>비유</th></tr>
+    <tr><td>FDM</td><td>주파수</td><td>FM 채널</td></tr>
+    <tr><td><strong>TDM</strong></td><td><strong>시간</strong></td><td><strong>회의 마이크</strong></td></tr>
+  </table>
+
+  <h4>② 용어 3개</h4>
+  <table>
+    <tr><th>용어</th><th>뜻</th><th>비유</th></tr>
+    <tr><td><strong>타임 슬롯</strong></td><td>장치 1개 분량 시간</td><td>발언 1번</td></tr>
+    <tr><td><strong>프레임</strong></td><td>모든 장치 1바퀴</td><td>회의 1라운드</td></tr>
+    <tr><td><strong>M</strong></td><td>송신 장치 수</td><td>참석자 M명</td></tr>
+  </table>
+  <pre style="background:#fff;padding:.75rem;border-radius:6px;font-size:.85rem;line-height:1.4;">
+|← 프레임 1바퀴 (M=5) →|
+[장치1][장치2][장치3][장치4][장치5]
+  슬롯1  슬롯2  슬롯3  슬롯4  슬롯5  → 5개 = M
+  </pre>
+
+  <h4>③ «동기» = 고정 슬롯</h4>
+  <p>데이터 없어도 <strong>매 프레임 M칸</strong> 유지. (통계 TDM은 가변 — 기출은 동기 위주)</p>
+
+  <h4>④ 7번 — 슬롯 = M</h4>
+  <p><strong>M장치 → M슬롯</strong> (1대 1슬롯). M+1 함정 X.</p>
+
+  <h4>⑤ 8번 — 프레임/s · bit/s</h4>
+  <div class="formula-box" style="margin:.5rem 0;text-align:left;font-size:.95rem;">
+    프레임/s = R ÷ B<br>
+    bit/s = M × R × 8
+  </div>
+  <table class="formula-legend">
+    <tr><th>기호</th><th>뜻</th><th>8번</th></tr>
+    <tr><td>프레임/s</td><td>초당 프레임 수</td><td>50</td></tr>
+    <tr><td>R</td><td>채널 1개 속도 [byte/s]</td><td>200</td></tr>
+    <tr><td>B</td><td>프레임당 채널 1개 [byte]</td><td>4</td></tr>
+    <tr><td>M</td><td>채널 수</td><td>5</td></tr>
+    <tr><td>bit/s</td><td>초당 비트</td><td>8000</td></tr>
+    <tr><td>×8</td><td>1 byte = 8 bit</td><td>—</td></tr>
+  </table>
+
+  <h4>⑥ 코드처럼</h4>
+  <pre style="background:#fff;padding:.75rem;border-radius:6px;font-size:.85rem;">
+7번:  슬롯 = M
+8번:  프레임/s = R ÷ B
+      bit/s = M × R × 8
+  </pre>
+
+  <h4>⑦ 암기 5줄</h4>
+  <ol>
+    <li>동기 TDM = 시간 나눔 + <strong>고정 M슬롯</strong></li>
+    <li><strong>M장치 → M슬롯</strong></li>
+    <li>프레임/s = 채널속도 ÷ 프레임당 byte</li>
+    <li>bit/s = M × 채널속도 × <strong>8</strong></li>
+    <li>k프레임 → 총 슬롯 = M × k</li>
+  </ol>
+</div>
+
+<hr>
+
+<h2 id="problem-7">문제 7 — 동기 시분할 다중화 (Synchronous TDM)</h2>
+<p class="tags"><strong>출처:</strong> 기출 7번 &nbsp;|&nbsp; <strong>태그:</strong> #TDM #동기TDM #프레임 #타임슬롯</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">7.</span>
+    동기 시분할 다중화(Synchronous TDM) 방식을 통해 <strong>M개</strong>의 송신 장치가 보낸 신호가 수신되었다면,
+    하나의 프레임(Frame)에 담긴 타임 슬롯(Time slot)의 <strong>최소 개수</strong>로 적절한 것은?
+  </p>
+  <ol class="options">
+    <li>① M+2</li>
+    <li>② M+1</li>
+    <li>③ M</li>
+    <li>④ M-1</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>암기 — 동기 TDM</h4>
+  <table>
+    <tr><th>용어</th><th>뜻</th></tr>
+    <tr><td><strong>TDM</strong></td><td>시간을 나눠 여러 채널이 한 회선 사용</td></tr>
+    <tr><td><strong>동기 TDM</strong></td><td>매 프레임마다 <strong>장치마다 고정 슬롯</strong></td></tr>
+    <tr><td><strong>프레임</strong></td><td>모든 장치 한 번씩 실은 «한 바퀴»</td></tr>
+    <tr><td><strong>타임 슬롯</strong></td><td>프레임 안 <strong>장치 1개</strong> 분량 시간</td></tr>
+  </table>
+  <p><strong>핵심:</strong> 송신 장치 <strong>M개</strong> → 슬롯 최소 <strong>M개</strong> (1대 1슬롯)</p>
+  <p><strong>비유:</strong> M명이 한 라운드씩 발언 → 라운드(프레임)당 <strong>M번</strong></p>
+</div>
+
+<h3>보기</h3>
+<ul>
+  <li>M+1, M+2 → 이 문제 조건에선 <strong>여분 슬롯 언급 없음</strong></li>
+  <li>M-1 → 장치 하나 못 실음 (X)</li>
+  <li><strong>③ M</strong> ✓</li>
+</ul>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(선택·이유)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ③ M --></p>
+
+<div class="concept-box">
+  <h4>변형 연습 — 동기 TDM</h4>
+  <p><strong>공식:</strong> 동기 TDM → 슬롯 = M (1대 1슬롯)</p>
+
+  <p><strong>변형 1.</strong> 송신 장치 <strong>12개</strong> → 1프레임 슬롯 최소? → <strong>12</strong> (③)</p>
+  <p><strong>변형 2.</strong> 슬롯 <strong>32개</strong> → 송신 장치 최대? → <strong>32</strong> (②)</p>
+  <p><strong>변형 3.</strong> M개 장치, 슬롯 최소? → <strong>M</strong> (②) — M+1 함정 X</p>
+  <p><strong>변형 4.</strong> «고정 슬롯, 데이터 없어도 할당» → <strong>동기 TDM</strong> (②)</p>
+  <p><strong>변형 5.</strong> M=8, <strong>3프레임</strong> → 총 슬롯 = 8×3 = <strong>24</strong> (③)</p>
+
+  <p><strong>암기:</strong> M ↔ 슬롯 1:1 &nbsp;|&nbsp; k프레임 → M×k</p>
+</div>
+
+<hr>
+
+<h2 id="problem-8">문제 8 — 동기 TDM (프레임 수 · 비트율 계산)</h2>
+<p class="tags"><strong>출처:</strong> 기출 8번 &nbsp;|&nbsp; <strong>태그:</strong> #TDM #프레임율 #bps</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">8.</span>
+    동기 TDM으로 <strong>5개</strong> 채널 다중화. 각 채널 <strong>200 byte/s</strong>,
+    프레임당 채널마다 <strong>4 byte</strong> 실음.
+    다중화 링크의 <strong>최소 프레임/s</strong>와 <strong>최소 bit/s</strong>는?
+  </p>
+  <ol class="options">
+    <li>① 50개 프레임, 4000개 비트</li>
+    <li>② 50개 프레임, 8000개 비트</li>
+    <li>③ 100개 프레임, 4000개 비트</li>
+    <li>④ 100개 프레임, 8000개 비트</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>풀이 2단계</h4>
+  <p><strong>① 프레임/s</strong> = 200 ÷ 4 = <strong>50</strong></p>
+  <p><strong>② bit/s</strong> = 5 × 200 × 8 = <strong>8000</strong></p>
+  <p>또는: 50 × (5×4) × 8 = 50 × 20 × 8 = 8000</p>
+  <p><strong>정답: ②</strong></p>
+</div>
+
+<h3>암기 공식 + 한글 풀이</h3>
+<div class="formula-box">
+  프레임/s = R ÷ B<br>
+  bit/s = M × R × 8
+</div>
+<table class="formula-legend">
+  <tr><th>기호</th><th>뜻</th><th>이 문제</th></tr>
+  <tr><td>프레임/s</td><td>초당 프레임 수</td><td><strong>50</strong></td></tr>
+  <tr><td>R</td><td>채널 속도 [byte/s]</td><td>200</td></tr>
+  <tr><td>B</td><td>프레임당 채널 [byte]</td><td>4</td></tr>
+  <tr><td>M</td><td>채널 수</td><td>5</td></tr>
+  <tr><td>bit/s</td><td>초당 비트</td><td><strong>8000</strong></td></tr>
+  <tr><td>×8</td><td>1 byte = 8 bit</td><td>—</td></tr>
+</table>
+
+<h3>함정</h3>
+<ul>
+  <li><strong>4000</strong> → ×8 빠짐 또는 1채널만</li>
+  <li><strong>100</strong> 프레임 → 4 byte 조건 무시</li>
+</ul>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(계산)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ② --></p>
+
+<hr>
+
+<h2 id="problem-9">문제 9 — FHSS 전체 대역폭</h2>
+<p class="tags"><strong>출처:</strong> 기출 9번 &nbsp;|&nbsp; <strong>태그:</strong> #FHSS #홉 #보호대역</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">9.</span>
+    FHSS 시스템이 <strong>4비트</strong> 주파수 도약 패턴 사용.
+    가능한 홉(Hop) 개수만큼 <strong>10 kHz</strong> 데이터 변조.
+    보호대역(Guard band) <strong>1 kHz</strong> 추가 시 <strong>전체 대역폭</strong>은?
+  </p>
+  <ol class="options">
+    <li>① 43 kHz</li>
+    <li>② 87 kHz</li>
+    <li>③ 175 kHz</li>
+    <li>④ 351 kHz</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>배경 — FHSS</h4>
+  <ul>
+    <li><strong>4비트 패턴</strong> → 홉 <strong>N = 2⁴ = 16</strong></li>
+    <li>홉 1개 = <strong>10 kHz</strong> 데이터</li>
+    <li><strong>보호 1 kHz</strong> = 홉 <strong>사이</strong> (N-1개)</li>
+  </ul>
+  <div class="formula-box" style="margin:.75rem 0;">
+    전체 BW = N×10 + (N-1)×1
+    <span class="note">= 16×10 + 15×1 = 175 kHz → ③</span>
+  </div>
+  <p><strong>한글 풀이</strong></p>
+  <table class="formula-legend">
+    <tr><th>기호</th><th>뜻</th><th>이 문제</th></tr>
+    <tr><td><strong>BW</strong></td><td>전체 대역폭 [kHz]</td><td><strong>175</strong></td></tr>
+    <tr><td><strong>N</strong></td><td>홉 개수 (= 2ⁿ, n=도약 패턴 비트)</td><td><strong>16</strong> (2⁴)</td></tr>
+    <tr><td><strong>10</strong></td><td>홉 1개당 데이터 [kHz]</td><td>10</td></tr>
+    <tr><td><strong>N-1</strong></td><td>보호대역 칸 수 (홉 사이)</td><td>15</td></tr>
+    <tr><td><strong>×1</strong></td><td>보호대역 [kHz]</td><td>1</td></tr>
+  </table>
+  <p style="font-size:.9rem;color:#555;">※ <strong>N</strong>은 비트 수가 아니라 <strong>홉 개수</strong> (4비트 → N=16)</p>
+  <p><strong>함정:</strong> 87=8홉(3비트), 16×11=176(X)</p>
+</div>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(계산)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ③ 175 kHz --></p>
+
+<hr>
+
+<h2 id="problem-10">문제 10 — 해밍 거리 · 오류 검출·정정</h2>
+<p class="tags"><strong>출처:</strong> 기출 10번 &nbsp;|&nbsp; <strong>태그:</strong> #해밍거리</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">10.</span>
+    송신 측에서 <strong>110111<sub>(2)</sub></strong> 의 데이터를 전송하였으나,
+    수신 측이 받은 데이터는 <strong>101101<sub>(2)</sub></strong> 으로 나타났다.
+    이 두 데이터 간 해밍 거리를 최소 해밍거리라고 가정한다.
+    <strong>최소 해밍거리 · 검출 가능 비트 오류 · 정정 가능 비트 오류</strong> 순 나열은?
+  </p>
+  <ol class="options">
+    <li>① 3, 2, 1</li>
+    <li>② 3, 1, 1</li>
+    <li>③ 2, 2, 1</li>
+    <li>④ 2, 2, 2</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>① 해밍 거리 HD</h4>
+  <pre style="background:#fff;padding:.75rem;font-size:.85rem;line-height:1.5;">
+송신: 1 1 0 1 1 1   (110111₂)
+수신: 1 0 1 1 0 1   (101101₂)
+          ^  ^     ^  → 3곳 다름 → HD = 3
+  </pre>
+
+  <h4>② 검출·정정 공식</h4>
+  <div class="formula-box" style="text-align:left;font-size:.95rem;">
+    검출 ≤ dₘᵢₙ - 1<br>
+    정정 ≤ (dₘᵢₙ - 1) ÷ 2
+  </div>
+  <table class="formula-legend">
+    <tr><th>기호</th><th>뜻</th><th>이 문제</th></tr>
+    <tr><td>dₘᵢₙ</td><td>최소 해밍 거리</td><td><strong>3</strong></td></tr>
+    <tr><td>dₘᵢₙ - 1</td><td>검출 가능 최대 오류</td><td><strong>2</strong></td></tr>
+    <tr><td>(dₘᵢₙ-1)÷2</td><td>정정 가능 최대 오류 (버림)</td><td><strong>1</strong></td></tr>
+  </table>
+  <p><strong>순서: 3 , 2 , 1 → ①</strong></p>
+  <p><strong>암기:</strong> dₘᵢₙ=3 → <strong>3, 2, 1</strong></p>
+</div>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(HD 세기·공식)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ① 3, 2, 1 --></p>
+
+<hr>
+
+<h2 id="problem-11">문제 11 — LAN 네트워크 토폴로지</h2>
+<p class="tags"><strong>출처:</strong> 기출 11번 &nbsp;|&nbsp; <strong>태그:</strong> #LAN #토폴로지 #메쉬 #스타 #버스 #링</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">11.</span>
+    LAN(Local Area Network)에서 <strong>거의 사용되지 않는</strong> 네트워크 토폴로지(Topology)에 해당하는 것은?
+  </p>
+  <ol class="options">
+    <li>① 메쉬형(Mesh type)</li>
+    <li>② 링형(Ring type)</li>
+    <li>③ 스타형(Star type)</li>
+    <li>④ 버스형(Bus type)</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>LAN 토폴로지 한눈에</h4>
+  <table>
+    <tr><th>토폴로지</th><th>LAN에서</th></tr>
+    <tr><td><strong>③ 스타형</strong></td><td><strong>현재 표준</strong> (스위치·허브 중심)</td></tr>
+    <tr><td>④ 버스형</td><td><strong>과거 LAN</strong> (동축 이더넷) — 지금은 거의 안 씀</td></tr>
+    <tr><td>② 링형</td><td><strong>과거 LAN</strong> (토큰 링) — 지금은 거의 안 씀</td></tr>
+    <tr><td><strong>① 메쉬형</strong></td><td><strong>LAN에서 사용하지 않음</strong> (광역·백본·고가용 망)</td></tr>
+  </table>
+  <p><strong>교재:</strong> LAN에서는 <strong>메쉬형을 사용하지 않는다</strong></p>
+</div>
+
+<h3>보기 소거</h3>
+<ul>
+  <li><strong>③ 스타</strong> — 오늘 LAN 주류 → X</li>
+  <li><strong>④ 버스 · ② 링</strong> — <strong>역사적으로 LAN</strong>이었음 (지금은 쇠퇴)</li>
+  <li><strong>① 메쉬</strong> — LAN 분류에서 <strong>「사용 안 함」</strong>으로 가르침 → <strong>정답</strong></li>
+</ul>
+
+<h3>④ 버스 함정</h3>
+<p>「요즘 버스는 안 쓴다」는 맞지만, 시험은 <strong>LAN에 속했던 토폴로지(버스·링)</strong> vs <strong>LAN에 해당 안 함(메쉬)</strong> 구분으로 <strong>①</strong>을 고르는 경우가 많음.</p>
+<p><strong>암기:</strong> LAN = 스타(주류) · 버스·링(과거 LAN) · <strong>메쉬( LAN 미사용 → ① )</strong></p>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(처음 ④ 버스 → 교재상 ① 메쉬)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ① 메쉬형(Mesh type) --></p>
+
+</div><!-- /section-legacy -->
+
+<div id="section-2024" class="year-section">
+<p class="year-heading">📁 2024 기출</p>
+
+<h2 id="q2024-12">문제 12 — 최대 비트율 (나이퀴스트)</h2>
+<p class="tags"><strong>출처:</strong> 2024 기출 12번 &nbsp;|&nbsp; <strong>태그:</strong> #나이퀴스트 #대역폭 #신호준위 #무잡음</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">12.</span>
+    <strong>8개</strong>의 신호 준위를 갖는 신호를 전송하는 <strong>3,000 [Hz]</strong>의 대역폭을 갖는 <strong>무잡음</strong> 채널이 있다. 최대 비트율은 얼마인가?
+  </p>
+  <ol class="options">
+    <li>① 12,000 [bps]</li>
+    <li>② 18,000 [bps]</li>
+    <li>③ 24,000 [bps]</li>
+    <li>④ 30,000 [bps]</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>잡음 없음 → 나이퀴스트</h4>
+  <div class="formula-box" style="text-align:left;font-size:1rem;">
+    R<sub>max</sub> = 2 × B × n
+    <span class="note">n = 신호 부호화 비트 수 (준위 8개 → n=3)</span>
+  </div>
+  <table class="formula-legend">
+    <tr><th>기호</th><th>뜻</th><th>이 문제</th></tr>
+    <tr><td><strong>L</strong></td><td>신호 준위(레벨) 수</td><td><strong>8</strong></td></tr>
+    <tr><td><strong>n</strong></td><td>신호 부호화 비트 수 (부호당 비트)</td><td><strong>3</strong></td></tr>
+    <tr><td><strong>B</strong></td><td>대역폭 [Hz]</td><td><strong>3,000</strong></td></tr>
+    <tr><td><strong>R</strong></td><td>최대 비트율 [bps]</td><td><strong>18,000</strong></td></tr>
+  </table>
+  <p><strong>계산:</strong> R = 2 × 3,000 × 3 = <strong>18,000 bps</strong> → <strong>②</strong></p>
+  <p><strong>함정:</strong> 8준위 ≠ 8비트 · 2B에서 <strong>2</strong> 빼먹기 · 3000×8=24000(③)은 n을 8로 착각</p>
+  <p><strong>유사:</strong> 노트 <a href="#problem-3">문제 3</a> (B·R 주고 n 구하기) — 같은 공식 <strong>역방향</strong></p>
+</div>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(계산)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ② 18,000 bps --></p>
+
+</div><!-- /section-2024 -->
+
+<div id="section-2025" class="year-section">
+<p class="year-heading">📁 2025 기출</p>
+
+<h2 id="q2025-3">문제 3 — 신호 부호화 비트 수 (나이퀴스트)
+  <button type="button" class="btn-similar" id="btn-similar-2025-3" aria-haspopup="dialog">유사문제</button>
+</h2>
+<p class="tags"><strong>출처:</strong> 2025 기출 3번 &nbsp;|&nbsp; <strong>태그:</strong> #나이퀴스트 #대역폭 #무잡음</p>
+
+<h3>문제 (기출 원문)</h3>
+<div class="exam-problem">
+  <p>
+    <span class="q-num">3.</span>
+    통신채널에서 <strong>잡음이 없다</strong>고 가정하고, 통신채널의 <strong>대역폭이 200 Hz</strong>이고
+    <strong>최대전송률 3,200 bps</strong>로 전송하고자 할 때, <strong>요구되는 신호 부호화 비트 수</strong>는?
+  </p>
+  <ol class="options">
+    <li>① 2</li>
+    <li>② 4</li>
+    <li>③ 8</li>
+    <li>④ 1</li>
+  </ol>
+</div>
+
+<div class="concept-box">
+  <h4>나이퀴스트 — n 구하기</h4>
+  <div class="formula-box" style="text-align:left;font-size:1rem;">
+    R = 2 × B × n  →  n = R ÷ (2B)
+    <span class="note">3,200 ÷ (2×200) = 3,200 ÷ 400 = 8 → ③</span>
+  </div>
+  <p><strong>유사:</strong> <a href="#q2024-12">2024 기출 12번</a> — B·준위 주고 <strong>R 구하기</strong> (역문제)</p>
+</div>
+
+<h3>내 풀이 메모</h3>
+<div class="memo">(계산)</div>
+<p style="color:#888;font-size:.85rem;"><!-- 정답: ③ 8 --></p>
+
+</div><!-- /section-2025 -->
+
+<div id="similar-modal" class="modal-overlay" role="dialog" aria-labelledby="similar-modal-title" aria-modal="true">
+  <div class="modal-box">
+    <h3 id="similar-modal-title">유사문제</h3>
+    <p>다른 연도 기출 — <strong>나이퀴스트</strong> (2025 3번: n 구하기 ↔ 2024 12번: R 구하기)</p>
+    <div class="modal-actions">
+      <button type="button" class="modal-link-2024" id="modal-goto-2024-12">2024 기출</button>
+      <button type="button" class="modal-close" id="modal-close">닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var tabs = document.querySelectorAll('.year-tab');
+  var sections = ['section-legacy', 'section-2024', 'section-2025'];
+
+  function scrollToSection(id) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      scrollToSection(tab.getAttribute('data-section'));
+    });
+  });
+
+  var modal = document.getElementById('similar-modal');
+  var btnOpen = document.getElementById('btn-similar-2025-3');
+  var btnClose = document.getElementById('modal-close');
+  var btn2024 = document.getElementById('modal-goto-2024-12');
+
+  function openModal() {
+    modal.classList.add('open');
+  }
+  function closeModal() {
+    modal.classList.remove('open');
+  }
+
+  if (btnOpen) btnOpen.addEventListener('click', openModal);
+  if (btnClose) btnClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', function (e) {
+    if (e.target === modal) closeModal();
+  });
+
+  if (btn2024) {
+    btn2024.addEventListener('click', function () {
+      closeModal();
+      tabs.forEach(function (t) {
+        t.classList.toggle('active', t.getAttribute('data-section') === 'section-2024');
+      });
+      var target = document.getElementById('q2024-12');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        target.style.outline = '3px solid #2563eb';
+        target.style.outlineOffset = '4px';
+        setTimeout(function () {
+          target.style.outline = '';
+          target.style.outlineOffset = '';
+        }, 2500);
+      } else {
+        scrollToSection('section-2024');
+      }
+    });
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  function sectionForAnchor(id) {
+    if (id.indexOf('q2024') === 0) return 'section-2024';
+    if (id.indexOf('q2025') === 0) return 'section-2025';
+    return 'section-legacy';
+  }
+
+  function highlight(el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    el.style.outline = '3px solid #2563eb';
+    el.style.outlineOffset = '4px';
+    setTimeout(function () {
+      el.style.outline = '';
+      el.style.outlineOffset = '';
+    }, 2500);
+  }
+
+  function navigateToHash() {
+    var hash = location.hash.slice(1);
+    if (!hash) return;
+    var el = document.getElementById(hash);
+    if (!el) return;
+    tabs.forEach(function (t) {
+      t.classList.toggle('active', t.getAttribute('data-section') === sectionForAnchor(hash));
+    });
+    setTimeout(function () { highlight(el); }, 100);
+  }
+
+  window.addEventListener('hashchange', navigateToHash);
+  navigateToHash();
+})();
+</script>
+
+</body>
+</html>

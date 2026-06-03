@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>통신공학 9급 — 기출 필수 계산 공식</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #ddd;
+      --accent: #2563eb;
+      --tip-bg: #eff6ff;
+      --card-bg: #fff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Pretendard", "Malgun Gothic", sans-serif;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--bg);
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    .title-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .title-row h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      flex: 1;
+      min-width: 12rem;
+    }
+    a.exam-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px dotted var(--accent);
+    }
+    a.exam-link:hover { text-decoration: underline; }
+    .exam-similar {
+      display: block;
+      margin-top: 0.45rem;
+      padding-top: 0.45rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+    .exam-similar-label {
+      display: inline-block;
+      margin-right: 0.35rem;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #1e40af;
+      background: #dbeafe;
+      border-radius: 4px;
+      vertical-align: middle;
+    }
+    .btn-back {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.45rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn-back:hover { background: var(--tip-bg); }
+    .intro {
+      background: var(--tip-bg);
+      border-left: 4px solid var(--accent);
+      padding: 0.75rem 1rem;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.95rem;
+    }
+    .toc {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+    .toc a { color: var(--accent); text-decoration: none; margin-right: 0.35rem; }
+    .toc a:hover { text-decoration: underline; }
+    h2 {
+      font-size: 1.15rem;
+      color: var(--accent);
+      margin: 2rem 0 0.75rem;
+      scroll-margin-top: 4rem;
+    }
+    .formula-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin: 1rem 0;
+    }
+    .formula-main {
+      font-family: Consolas, "Malgun Gothic", monospace;
+      font-size: 1.1rem;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin: 0.75rem 0;
+      text-align: center;
+    }
+    table.detail {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.5rem 0;
+      font-size: 0.92rem;
+    }
+    table.detail th {
+      width: 5.5rem;
+      background: #f0f0f0;
+      vertical-align: top;
+    }
+    table.detail th.hint-th { width: 5.5rem; }
+    table.detail td .hint-lead {
+      margin: 0 0 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #166534;
+    }
+    table.detail td .hint-avoid {
+      margin: 0.5rem 0 0;
+      font-size: 0.85rem;
+      color: #9a3412;
+    }
+    table.hint-kw {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      margin: 0.25rem 0 0;
+    }
+    table.hint-kw th, table.hint-kw td {
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.5rem;
+      vertical-align: top;
+    }
+    table.hint-kw th {
+      width: 42%;
+      background: #f0fdf4;
+      font-weight: 600;
+    }
+    ul.var-list {
+      margin: 0.2rem 0 0;
+      padding-left: 1.15rem;
+      line-height: 1.55;
+    }
+    ul.var-list li { margin: 0.15rem 0; }
+    table.detail th, table.detail td {
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.65rem;
+      text-align: left;
+    }
+    .exam-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+    table.cheat {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.9rem;
+    }
+    table.cheat th, table.cheat td {
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.65rem;
+    }
+    table.cheat th { background: #e0e7ff; }
+    table.cheat code {
+      font-family: Consolas, monospace;
+      font-size: 0.88rem;
+    }
+    code {
+      background: #f0f0f0;
+      padding: 0.1em 0.3em;
+      border-radius: 3px;
+    }
+    @media print {
+      .btn-back { display: none; }
+      .formula-card { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="title-row">
+  <h1>통신공학 9급 기출 — 필수 계산 공식</h1>
+  <a class="btn-back" href="./통신공학-기출-학습노트.html">← 학습 노트</a>
+</div>
+
+<p class="intro">
+  이전·<strong>2024</strong>·<strong>2025</strong> 기출에 나온 <strong>계산 공식 11유형</strong> 총정리입니다.
+  이 표만 확실히 외워도 계산 문제 대부분을 커버할 수 있습니다.
+</p>
+
+<nav class="toc" aria-label="목차">
+  <strong>바로가기:</strong>
+  <a href="#f1">1 나이퀴스트</a>
+  <a href="#f2">2 섀넌</a>
+  <a href="#f3">3 baud↔bps</a>
+  <a href="#f4">4 PCM</a>
+  <a href="#f5">5 TDM</a>
+  <a href="#f6">6 OFDM</a>
+  <a href="#f7">7 파장·안테나</a>
+  <a href="#f8">8 FDMA</a>
+  <a href="#f9">9 FHSS</a>
+  <a href="#f10">10 해밍</a>
+  <a href="#f11">11 감쇄</a>
+  <a href="#cheat">암기표</a>
+</nav>
+
+<h2 id="f1">1. 나이퀴스트 전송률 (잡음 없는 채널)</h2>
+<div class="formula-card">
+  <div class="formula-main">R = 2 × B × n &nbsp; (bps)</div>
+  <table class="detail">
+    <tr><th>변수</th><td><strong>R</strong> 최대 전송률 [bps] · <strong>B</strong> 대역폭 [Hz] · <strong>n</strong> 신호 부호화 비트 수(비트/심볼)</td></tr>
+    <tr><th>설명</th><td>잡음 없을 때 대역폭 B로 보낼 수 있는 최대 비트율. 준위 수 L이면 <strong>n = log₂L</strong>로 구한 뒤 공식에 넣음</td></tr>
+    <tr><th>기출</th><td>
+      <a class="exam-link" href="./통신공학-기출-학습노트.html#q2025-3" title="2025 기출 3번">2025-3</a>: 무잡음·B=200Hz·R=3200bps → 3200=2×200×n → <strong>n=8</strong>
+      <span class="exam-similar"><span class="exam-similar-label">유사</span>
+        <a class="exam-link" href="./통신공학-기출-학습노트.html#q2024-12" title="2024 기출 12번">2024-12</a>: 무잡음·8준위·B=3000Hz → n=3 → R=<strong>18000bps</strong> (역: R 구하기)
+        · <a class="exam-link" href="./통신공학-기출-학습노트.html#problem-3" title="전체 탭 문제 3">전체 3번</a> (2025-3 동일)</span>
+    </td></tr>
+    <tr><th>응용</th><td>
+      <a class="exam-link" href="./통신공학-기출-학습노트.html#q2024-12" title="2024 기출 12번">2024-12</a>: 무잡음·8준위·B=3000Hz → n=3 → R=2×3000×3=<strong>18000bps</strong>
+      <span class="exam-similar"><span class="exam-similar-label">유사</span>
+        <a class="exam-link" href="./통신공학-기출-학습노트.html#q2025-3" title="2025 기출 3번">2025-3</a>: 무잡음·B=200Hz·R=3200bps → n=<strong>8</strong> (역: n 구하기)
+        · <a class="exam-link" href="./통신공학-기출-학습노트.html#problem-3" title="전체 탭 문제 3">전체 3번</a></span>
+    </td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 나이퀴스트)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「잡음이 없다」「가정하고」+ 잡음 언급 없음</td><td>가장 강력 — <strong>잡음 없음</strong> → 나이퀴스트</td></tr>
+        <tr><td>「무잡음 채널」</td><td>위와 동일</td></tr>
+        <tr><td>「최대 전송률」「최대 비트율」+ 대역폭 B [Hz]</td><td>이론적 상한 · <strong>2×B×n</strong> 구조</td></tr>
+        <tr><td>「신호 준위(레벨) 수」「n개의 준위」</td><td>준위 → <strong>n = log₂L</strong> 후 R 계산</td></tr>
+        <tr><td>「신호 부호화 비트 수」「몇 비트로 표현」</td><td><strong>n</strong>을 구하거나 주어짐</td></tr>
+        <tr><td>「나이퀴스트」직접 언급</td><td>공식 지정 문제</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「SNR」「S/N」「dB」「잡음이 있다」→ <strong>섀넌</strong> · 「baud·bps·QAM」만 있으면 → <strong>변조(3번)</strong></p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f2">2. 섀넌(Shannon) 채널 용량 (잡음 있는 채널)</h2>
+<div class="formula-card">
+  <div class="formula-main">C = B × log₂(1 + SNR) &nbsp; (bps)</div>
+  <table class="detail">
+    <tr><th>변수</th><td><strong>C</strong> 채널 용량 · <strong>B</strong> [Hz] · <strong>SNR</strong> 신호대잡음비 <strong>(선형, 무단위)</strong></td></tr>
+    <tr><th>dB→선형</th><td>SNR(선형) = 10<sup>SNR(dB)/10</sup> · 전력 dB 차이: 13dBm−3dBm = <strong>10dB</strong> → 선형 <strong>10</strong></td></tr>
+    <tr><th>기출</th><td>2025-18: B=1MHz, SNR=10dB → C=10⁶×log₂(11) · 2024-12(섀넌): B=4000Hz, SNR=4095 → log₂(4096)=12 → C=B×12 <span class="exam-similar"><span class="exam-similar-label">유사</span>나이퀴스트 쌍 → <a class="exam-link" href="./통신공학-기출-학습노트.html#q2025-3">2025-3</a> · <a class="exam-link" href="./통신공학-기출-학습노트.html#q2024-12">2024-12</a> (노트는 나이퀴스트 풀이)</span></td></tr>
+    <tr><th>역산</th><td>R·B 주고 S/N 구할 때: log₂(1+SNR)=R/B → 1+SNR=2<sup>R/B</sup></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 섀넌)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「잡음」「잡음이 있다」「열잡음」</td><td>잡음 있는 채널 → <strong>섀넌</strong></td></tr>
+        <tr><td>「SNR」「S/N」「신호 대 잡음비」</td><td><strong>log₂(1+SNR)</strong>에 대입 (선형인지 dB인지 확인)</td></tr>
+        <tr><td>SNR·전력이 <strong>dB</strong>로 주어짐</td><td>먼저 선형 변환: 10<sup>dB/10</sup></td></tr>
+        <tr><td>「채널 용량」「Shannon」「섀넌」</td><td>공식 지정 · C = B·log₂(1+SNR)</td></tr>
+        <tr><td>대역폭 B + 전송률 R 주고 「S/N은?」</td><td>역산: 1+SNR = 2<sup>R/B</sup></td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「잡음이 없다」「무잡음」→ <strong>나이퀴스트</strong> · 「2B」·「준위 수」만 → 나이퀴스트 쪽</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f3">3. 심볼율 ↔ 비트율</h2>
+<div class="formula-card">
+  <div class="formula-main">비트율(bps) = 심볼율(baud) × n</div>
+  <table class="detail">
+    <tr><th>변수</th><td><strong>n</strong> 부호당 비트 수(비트/심볼) · 변조 이름의 숫자가 레벨 수 M이면 <strong>n = log₂M</strong> (16-QAM→M=16→n=4)</td></tr>
+    <tr><th>설명</th><td>baud=초당 심볼 수 · bps=초당 비트 수 · <strong>bps = baud × n</strong></td></tr>
+    <tr><th>기출</th><td>
+      <a class="exam-link" href="./통신공학-기출-학습노트.html#problem-4" title="2025 기출 4번">2025-4</a>: 2400 baud, 9600 bps → n=4 → <strong>16-QAM</strong>
+      <span class="exam-similar"><span class="exam-similar-label">유사</span>2024-7: 32-QAM, 1M baud → 1M×5=<strong>5 Mbps</strong> (노트 미등록)</span>
+    </td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 baud↔bps·변조)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「baud」「심볼율」「변조속도」「부호율」</td><td>초당 <strong>심볼</strong> 수</td></tr>
+        <tr><td>「bps」「비트율」「데이터전송률」</td><td>초당 <strong>비트</strong> 수 — 둘 다 주어지면 n = bps÷baud</td></tr>
+        <tr><td>「QPSK」「16-QAM」「32-QAM」「BPSK」</td><td>이름 숫자=레벨 M → <strong>n=log₂M</strong> (QPSK→n=2, 16-QAM→n=4)</td></tr>
+        <tr><td>「적용된 변조방식」「가장 적절한 변조」</td><td>n 구한 뒤 <strong>2ⁿ</strong>·보기 변조명 매칭</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「대역폭 Hz」「무잡음」「SNR」→ 나이퀴스트/섀넌 · 「PCM」「양자화 간격」→ <strong>4번</strong></p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f4">4. PCM 양자화 간격</h2>
+<div class="formula-card">
+  <div class="formula-main">Δ = (V<sub>max</sub> − V<sub>min</sub>) / 2ⁿ &nbsp; (V)</div>
+  <table class="detail">
+    <tr><th>변수</th><td>
+      <ul class="var-list">
+        <li><strong>Δ</strong> — <strong>양자화 간격</strong> (인접 레벨 사이 전압 차, 계단 한 칸) [V] · 보통 구하는 값</li>
+        <li><strong>V<sub>max</sub></strong> — 신호 <strong>최대 전압</strong> [V] (예: +8 sin → <strong>+8 V</strong>)</li>
+        <li><strong>V<sub>min</sub></strong> — 신호 <strong>최소 전압</strong> [V] (예: +8 sin → <strong>−8 V</strong>)</li>
+        <li><strong>V<sub>max</sub> − V<sub>min</sub></strong> — 전압 <strong>범위</strong> [V] (위 예: 8−(−8)=<strong>16 V</strong>)</li>
+        <li><strong>n</strong> — <strong>부호화 비트 수</strong> (지문 「3비트」→ n=3)</li>
+        <li><strong>2ⁿ</strong> (= L) — <strong>양자화 레벨 수</strong> (n=3 → 8단계)</li>
+      </ul>
+    </td></tr>
+    <tr><th>설명</th><td>전압 범위를 2ⁿ개 레벨로 나눔 → <strong>Δ = (범위) ÷ (레벨 수)</strong>. 대칭 sin 문제: Δ = (V<sub>max</sub>−V<sub>min</sub>)/2ⁿ = 2×진폭/2ⁿ</td></tr>
+    <tr><th>기출</th><td><a class="exam-link" href="./통신공학-기출-학습노트.html#problem-5" title="2025 기출 5번">2025-5</a>: 8sin(2πft) → ±8V → 범위 16V, 3bit → Δ=16/8=<strong>2V</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 PCM Δ)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「PCM」「펄스 부호 변조」「양자화」</td><td>아날로그→디지털 · 레벨 나누기</td></tr>
+        <tr><td>「sin(」「진폭」「±○ V」「전압 범위」</td><td>V<sub>max</sub>−V<sub>min</sub> 구하기</td></tr>
+        <tr><td>「n bit」「3비트」+ 「레벨 간격」「양자화 간격 Δ」</td><td>Δ = (범위) / 2ⁿ</td></tr>
+        <tr><td>「2ⁿ 개의 레벨」</td><td>레벨 수 = 2ⁿ → Δ = 범위÷레벨 수</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「채널 대역폭」「전송률 bps」만 → 나이퀴스트/섀넌 · 「TDM」「프레임」→ <strong>5번</strong></p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f5">5. TDM 프레임율 · 비트율</h2>
+<div class="formula-card">
+  <div class="formula-main">프레임율 = (채널 1개 속도) ÷ (프레임당 byte/채널)<br>총 bit/s = 프레임율 × (프레임당 bit)</div>
+  <table class="detail">
+    <tr><th>설명</th><td>동기 TDM: 매 프레임마다 채널마다 고정 슬롯 · <strong>byte→bit ×8</strong></td></tr>
+    <tr><th>기출1</th><td>
+      <a class="exam-link" href="./통신공학-기출-학습노트.html#problem-8" title="2025 기출 8번">2025-8</a>: 동기 TDM·5채널×200byte/s·프레임당 4byte/채널 → 50 frame/s, 5×200×8=<strong>8000 bit/s</strong>
+      <span class="exam-similar"><span class="exam-similar-label">유사</span>
+        <a class="exam-link" href="./통신공학-기출-학습노트.html#problem-7" title="2025 기출 7번">2025-7</a>: M개 송신 장치 → 프레임 슬롯 최소 <strong>M개</strong> (개념)</span>
+    </td></tr>
+    <tr><th>기출2</th><td>2024-15: 동기 TDM·20채널·16bit/샘플·8kHz·1bit/프레임 → <strong>2.568 Mbps</strong> (노트 미등록)</td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 TDM)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「TDM」「시분할 다중화」</td><td>시간 축으로 채널 나눔</td></tr>
+        <tr><td>「동기 TDM」「Synchronous TDM」</td><td>고정 슬롯 · 프레임 구조</td></tr>
+        <tr><td>「프레임」「타임 슬롯」「Time slot」</td><td>프레임율·슬롯 수 계산</td></tr>
+        <tr><td>「M개 송신 장치」「채널 ○개」+ 슬롯 <strong>개수</strong>만</td><td>개념: 슬롯 최소 = <strong>M</strong> (기출7)</td></tr>
+        <tr><td>「byte/s」「프레임당 ○ byte」+ 「bit/s」「프레임/s」</td><td>계산형 (기출8): 프레임율 = (채널속도)÷(프레임당 byte)</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「부반송파 N」「OFDM」→ <strong>6번</strong> · 「주파수 분할·셀」→ FDMA</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f6">6. OFDM 전송율</h2>
+<div class="formula-card">
+  <div class="formula-main">전송율 = N × n / T &nbsp; (bps)</div>
+  <table class="detail">
+    <tr><th>변수</th><td><strong>N</strong> 부반송파 수 · <strong>n</strong> 부호당 비트 (QPSK→2) · <strong>T</strong> 심볼 간격 [s] · 1/T = 심볼율</td></tr>
+    <tr><th>기출</th><td>2024-13: N=48, QPSK(n=2), T=2μs → 48×2÷(2×10⁻⁶) = <strong>48 Mbps</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 OFDM 전송율)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「OFDM」「직교 주파수 분할」</td><td>여러 부반송파 동시 사용</td></tr>
+        <tr><td>「부반송파 ○개」「서브캐리어 N」</td><td>식의 <strong>N</strong></td></tr>
+        <tr><td>「심볼 간격 T」「μs」+ QPSK/QAM</td><td>1/T = 심볼율 · 변조→<strong>n</strong> (QPSK→2)</td></tr>
+        <tr><td>「전송율」「데이터율」+ 위 세 가지 동시</td><td><strong>R = N × n / T</strong></td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「TDM」「프레임·채널 byte」→ 5번 · 단순 「baud·bps」만 → 3번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f7">7. 파장 · 안테나 길이</h2>
+<div class="formula-card">
+  <div class="formula-main">λ = c / f &nbsp;&nbsp;·&nbsp;&nbsp; 안테나 길이 ∝ λ ∝ 1/f</div>
+  <table class="detail">
+    <tr><th>변수</th><td><strong>c</strong> ≈ 3×10⁸ m/s (문제: 3×10⁵ km/s) · <strong>f</strong> [Hz]</td></tr>
+    <tr><th>기출</th><td>2024-19: 3GHz → λ=<strong>10cm</strong> · 2024-16: f 2배 → 안테나 길이 <strong>½</strong> (8cm→4cm)</td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 λ·안테나)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「파장 λ」「wavelength」</td><td>λ = c / f</td></tr>
+        <tr><td>「주파수 ○ GHz/MHz」「반송파」</td><td>f → λ 계산 (c ≈ 3×10⁸ m/s)</td></tr>
+        <tr><td>「안테나 길이」「소자 길이」+ 주파수 변화</td><td>길이 ∝ λ ∝ <strong>1/f</strong> (f 2배 → 길이 ½)</td></tr>
+        <tr><td>「반파장 안테나」</td><td>길이 ≈ λ/2 관계 문제</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「대역폭·bps·SNR」→ 전송률 공식 · 「dB/km·중계」→ 11번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f8">8. FDMA 셀 용량</h2>
+<div class="formula-card">
+  <div class="formula-main">셀당 사용자 ≈ (총 대역폭 / 채널 대역폭) / 재사용율</div>
+  <table class="detail">
+    <tr><th>기출</th><td>2024-18: 상향 15MHz, 30kHz/채널 → 500채널, 재사용 4 → <strong>125명/셀</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 FDMA·셀 용량)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「FDMA」「주파수 분할 다중접속」</td><td>주파수 축으로 채널 분할</td></tr>
+        <tr><td>「셀」「셀당 사용자」「용량」</td><td>한 셀에 몇 명 수용?</td></tr>
+        <tr><td>「총 대역폭 MHz」÷「채널 대역폭 kHz」</td><td>채널 개수 = 총BW / 채널BW</td></tr>
+        <tr><td>「재사용율」「reuse」</td><td>셀당 = (채널 수) ÷ 재사용</td></tr>
+        <tr><td>「상향」「하향」링크 대역</td><td>문제에서 지정한 방향 BW 사용</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「홉·FHSS·보호대역」→ <strong>9번</strong> · 「TDM·프레임」→ 5번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f9">9. FHSS 전체 대역폭</h2>
+<div class="formula-card">
+  <div class="formula-main">홉 수 N = 2ⁿ<br>전체 BW = N × (데이터 BW) + (N−1) × (보호대역)</div>
+  <table class="detail">
+    <tr><th>기출</th><td><a class="exam-link" href="./통신공학-기출-학습노트.html#problem-9" title="2025 기출 9번">2025-9</a>: 4bit→N=16, 10kHz/홉, guard 1kHz → 16×10+15×1=<strong>175 kHz</strong></td></tr>
+    <tr><th>주의</th><td>교재에 따라 N×(10+1) 형태로 쓰는 경우도 있음 → 숫자 확인</td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 FHSS 대역폭)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「FHSS」「주파수 도약 확산」</td><td>홉(hop)으로 주파수 바꿈</td></tr>
+        <tr><td>「○ bit」→ 홉 수 <strong>2ⁿ</strong></td><td>홉 개수 N</td></tr>
+        <tr><td>「홉당 ○ kHz」「데이터 대역폭」</td><td>각 홉이 차지하는 BW</td></tr>
+        <tr><td>「보호 대역」「guard band」</td><td>홉 사이 간격 — (N−1)×guard</td></tr>
+        <tr><td>「전체 대역폭」「스펙트럼 점유」</td><td>N×(데이터 BW)+(N−1)×guard</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「셀·재사용·FDMA」→ 8번 · 「해밍·코드워드」→ 10번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f10">10. 해밍 거리 · 오류 검출·정정</h2>
+<div class="formula-card">
+  <div class="formula-main">d<sub>min</sub> = 다른 비트 개수 (XOR 후 1의 개수)<br>검출 ≤ d<sub>min</sub> − 1 &nbsp;·&nbsp; 정정 ≤ ⌊(d<sub>min</sub>−1)/2⌋</div>
+  <table class="detail">
+    <tr><th>기출</th><td><a class="exam-link" href="./통신공학-기출-학습노트.html#problem-10" title="2025 기출 10번">2025-10</a>: 110111 vs 101101 → HD=<strong>3</strong> → 검출 <strong>2</strong>, 정정 <strong>1</strong></td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 해밍 거리)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「해밍 거리」「Hamming distance」</td><td>두 코드의 다른 비트 수</td></tr>
+        <tr><td>두 이진 문자열·코드워드 나란히 제시</td><td>XOR → 1의 개수 = d<sub>min</sub></td></tr>
+        <tr><td>「오류 검출」「몇 비트 오류 검출」</td><td>검출 ≤ d−1</td></tr>
+        <tr><td>「오류 정정」「정정 가능」</td><td>정정 ≤ ⌊(d−1)/2⌋</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「전송률·대역폭」→ 1·2번 · 「dB/km·거리」→ 11번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="f11">11. 경로 감쇄 (dB · 거리)</h2>
+<div class="formula-card">
+  <div class="formula-main">감쇄(dB) = 10 × log₁₀(P<sub>송신</sub> / P<sub>수신</sub>)</div>
+  <table class="detail">
+    <tr><th>설명</th><td>1km당 3dB면 거리 2배마다 약 6dB 추가(자유공간 근사) · 중계기는 구간 감쇄 보상</td></tr>
+    <tr><th>기출</th><td>2025-22: 3dB/km, 중계 1개, SNR≥10dB → 최대 거리 (기출 <strong>③ 16km</strong> 등)</td></tr>
+    <tr><th class="hint-th">지문힌트</th><td>
+      <p class="hint-lead">✅ 결정적 키워드 (이게 보이면 경로 감쇄·거리)</p>
+      <table class="hint-kw">
+        <tr><th>키워드</th><th>해석</th></tr>
+        <tr><td>「dB/km」「km당 ○ dB」</td><td>거리에 비례해 감쇄 누적</td></tr>
+        <tr><td>「경로 손실」「감쇄」「전파 손실」</td><td>10·log(P<sub>송</sub>/P<sub>수</sub>) 또는 구간 dB 합</td></tr>
+        <tr><td>「중계기」「Repeater」</td><td>구간 나눠 감쇄 보상 후 다시 계산</td></tr>
+        <tr><td>「최대 거리」「통신 가능 거리」+ SNR/dB 조건</td><td>허용 감쇄 ÷ (dB/km) → km</td></tr>
+        <tr><td>송신·수신 <strong>전력 dBm</strong> 차이</td><td>감쇄(dB) = 차이 (같은 단위끼리)</td></tr>
+      </table>
+      <p class="hint-avoid">❌ 피하기: 「채널 용량·SNR으로 bps」→ <strong>섀넌</strong> · 「파장·안테나 cm」→ 7번</p>
+    </td></tr>
+  </table>
+</div>
+
+<h2 id="cheat">공식 암기용 요약표 (휴대용)</h2>
+<table class="cheat">
+  <thead>
+    <tr><th>#</th><th>공식</th><th>용도</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td><code>R = 2Bn</code></td><td>나이퀴스트 (무잡음)</td></tr>
+    <tr><td>2</td><td><code>C = B log₂(1+SNR)</code></td><td>섀넌 (잡음)</td></tr>
+    <tr><td>3</td><td><code>bps = baud × n</code></td><td>변조·심볼↔비트</td></tr>
+    <tr><td>4</td><td><code>Δ = (Vmax−Vmin)/2ⁿ</code></td><td>PCM 간격</td></tr>
+    <tr><td>5</td><td><code>bit/s = frame/s × bit/frame</code></td><td>TDM</td></tr>
+    <tr><td>6</td><td><code>R = Nn / T</code></td><td>OFDM</td></tr>
+    <tr><td>7</td><td><code>λ=c/f, L∝1/f</code></td><td>파장·안테나</td></tr>
+    <tr><td>8</td><td><code>(총BW/채널BW)/재사용</code></td><td>FDMA 셀</td></tr>
+    <tr><td>9</td><td><code>N×데이터+(N−1)×guard</code></td><td>FHSS, N=2ⁿ</td></tr>
+    <tr><td>10</td><td><code>검출=d−1, 정정=⌊(d−1)/2⌋</code></td><td>해밍</td></tr>
+    <tr><td>11</td><td><code>10log(P1/P2)</code></td><td>감쇄 dB</td></tr>
+  </tbody>
+</table>
+
+<p class="exam-tag">※ 잡음 없음 → <strong>① 나이퀴스트</strong> / 잡음·S/N → <strong>② 섀넌</strong> 먼저 구분</p>
+
+</body>
+</html>
