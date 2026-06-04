@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>행정학 9급 — 기출 문제집</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #fff;
+      --text: #1a1a1a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --accent: #059669;
+      --accent-dark: #047857;
+      --wrong: #fef2f2;
+      --wrong-border: #fecaca;
+      --right: #ecfdf5;
+      --right-border: #6ee7b7;
+      --pick: #eff6ff;
+      --pick-border: #93c5fd;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Pretendard", "Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,.06);
+    }
+    .app-header h1 {
+      margin: 0;
+      font-size: 1.15rem;
+      flex: 1;
+      min-width: 10rem;
+      color: var(--accent-dark);
+    }
+    .app-header .meta { font-size: 0.82rem; color: var(--muted); width: 100%; }
+    .btn-link {
+      font-size: 0.88rem;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .btn-link:hover { background: #ecfdf5; }
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: calc(100vh - 80px);
+    }
+    @media (max-width: 768px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .sidebar.open {
+        display: block;
+        position: fixed;
+        inset: 0;
+        top: auto;
+        z-index: 30;
+        background: var(--card);
+        padding: 1rem;
+        overflow: auto;
+        max-height: 70vh;
+        border-top: 1px solid var(--border);
+      }
+    }
+    .sidebar {
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 1rem 0.75rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 80px);
+      position: sticky;
+      top: 80px;
+    }
+    .sidebar h2 {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin: 0 0 0.5rem 0.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .q-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.35rem;
+    }
+    .q-nav button {
+      font: inherit;
+      font-size: 0.85rem;
+      padding: 0.45rem 0;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .q-nav button:hover { border-color: var(--accent); color: var(--accent); }
+    .q-nav button.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .q-nav button.done { background: #d1fae5; border-color: #6ee7b7; }
+    .main { padding: 1.25rem 1.5rem 3rem; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .btn-nav, .btn-toggle-nav, .btn-explain {
+      font: inherit;
+      font-size: 0.9rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: #fff;
+    }
+    .btn-nav:hover, .btn-toggle-nav:hover { background: #f8fafc; }
+    .btn-explain {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: 600;
+      margin-left: auto;
+    }
+    .btn-explain:hover { background: var(--accent-dark); }
+    .btn-explain.open { background: #64748b; border-color: #64748b; }
+    .progress { font-size: 0.88rem; color: var(--muted); align-self: center; }
+    .exam-card {
+      background: var(--card);
+      border: 2px solid #334155;
+      border-radius: 6px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .q-label {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 0.75rem;
+    }
+    .q-stem { margin: 0 0 1rem; font-size: 1rem; }
+    .q-box {
+      border: 1px solid #94a3b8;
+      padding: 1rem 1.15rem;
+      margin: 0 0 1.25rem;
+      font-size: 0.95rem;
+      background: #fafafa;
+      white-space: pre-wrap;
+    }
+    .options { list-style: none; margin: 0; padding: 0; }
+    .options li { margin-bottom: 0.5rem; }
+    .opt-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      font: inherit;
+      font-size: 0.98rem;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: #fff;
+      cursor: pointer;
+      line-height: 1.5;
+    }
+    .opt-btn:hover:not(:disabled) { border-color: var(--accent); background: #f0fdf4; }
+    .opt-btn.picked { background: var(--pick); border-color: var(--pick-border); }
+    .opt-btn.correct { background: var(--right); border-color: var(--right-border); font-weight: 600; }
+    .opt-btn.wrong { background: var(--wrong); border-color: var(--wrong-border); }
+    .opt-btn:disabled { cursor: default; }
+    .explain-panel {
+      display: none;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 2px dashed var(--border);
+    }
+    .explain-panel.show { display: block; }
+    .answer-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    .choice-review {
+      margin: 0.75rem 0;
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .choice-review.is-answer { border-color: var(--right-border); background: var(--right); }
+    .choice-review .cr-head {
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+    .choice-review .cr-head .tag-o { color: #047857; }
+    .choice-review .cr-head .tag-x { color: #b91c1c; }
+    .summary-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+    .summary-box strong { color: #92400e; }
+  </style>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>행정학 9급 — 기출 문제집</h1>
+  <a class="btn-link" href="./index.html">← 목록</a>
+  <a class="btn-link" href="./행정학-기출-학습노트.html">학습 노트</a>
+  <p class="meta" id="exam-meta"></p>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <h2>문항 이동</h2>
+    <div class="q-nav" id="q-nav"></div>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <button type="button" class="btn-toggle-nav" id="btn-toggle-nav">문항 목록</button>
+      <button type="button" class="btn-nav" id="btn-prev">← 이전</button>
+      <button type="button" class="btn-nav" id="btn-next">다음 →</button>
+      <span class="progress" id="progress"></span>
+      <button type="button" class="btn-explain" id="btn-explain">해설 보기</button>
+    </div>
+    <article class="exam-card" id="exam-card" aria-live="polite"></article>
+  </main>
+</div>
+
+<script src="./행정학-기출-데이터.js"></script>
+<script>
+(function () {
+  var data = window.HAENG_EXAM;
+  if (!data) return;
+
+  var qs = data.questions;
+  var idx = 0;
+  var picked = {};
+  var explained = {};
+
+  var elMeta = document.getElementById("exam-meta");
+  var elNav = document.getElementById("q-nav");
+  var elCard = document.getElementById("exam-card");
+  var elProgress = document.getElementById("progress");
+  var elBtnExplain = document.getElementById("btn-explain");
+  var sidebar = document.getElementById("sidebar");
+
+  elMeta.textContent = data.meta.title + " · 총 " + qs.length + "문항";
+
+  function buildNav() {
+    elNav.innerHTML = "";
+    qs.forEach(function (q, i) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.textContent = q.id;
+      b.dataset.i = i;
+      b.addEventListener("click", function () { go(i); sidebar.classList.remove("open"); });
+      elNav.appendChild(b);
+    });
+  }
+
+  function updateNav() {
+    var buttons = elNav.querySelectorAll("button");
+    buttons.forEach(function (b, i) {
+      b.classList.toggle("active", i === idx);
+      b.classList.toggle("done", !!explained[i]);
+    });
+  }
+
+  function circle(n) {
+    return ["①", "②", "③", "④"][parseInt(n, 10) - 1] || n;
+  }
+
+  function render() {
+    var q = qs[idx];
+    var html = '<p class="q-label">' + q.id + '.</p>';
+    html += '<p class="q-stem">' + q.stem + '</p>';
+    if (q.box) html += '<div class="q-box">' + q.box.replace(/\n/g, "<br>") + '</div>';
+    html += '<ol class="options">';
+    q.choices.forEach(function (c) {
+      html += '<li><button type="button" class="opt-btn" data-id="' + c.id + '">' + circle(c.id) + " " + c.text + '</button></li>';
+    });
+    html += '</ol>';
+    html += '<div class="explain-panel" id="explain-panel"></div>';
+    elCard.innerHTML = html;
+
+    elProgress.textContent = (idx + 1) + " / " + qs.length;
+
+    var panel = document.getElementById("explain-panel");
+    var show = explained[idx];
+    elBtnExplain.textContent = show ? "해설 숨기기" : "해설 보기";
+    elBtnExplain.classList.toggle("open", show);
+
+    if (show) fillExplain(q, panel);
+    else panel.classList.remove("show");
+
+    elCard.querySelectorAll(".opt-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (explained[idx]) return;
+        picked[idx] = btn.dataset.id;
+        elCard.querySelectorAll(".opt-btn").forEach(function (b) { b.classList.remove("picked"); });
+        btn.classList.add("picked");
+      });
+    });
+
+    if (explained[idx]) markOptions(q);
+    updateNav();
+  }
+
+  function markOptions(q) {
+    var pick = picked[idx];
+    elCard.querySelectorAll(".opt-btn").forEach(function (btn) {
+      var id = btn.dataset.id;
+      btn.disabled = true;
+      if (id === q.answer) btn.classList.add("correct");
+      else if (id === pick) btn.classList.add("wrong");
+    });
+  }
+
+  function fillExplain(q, panel) {
+    var pick = picked[idx];
+    var html = '<div class="answer-badge">정답: ' + circle(q.answer) + '</div>';
+    if (pick && pick !== q.answer) {
+      html += '<p style="margin:0 0 1rem;color:#b91c1c;font-size:0.9rem;">내 선택: ' + circle(pick) + ' (오답)</p>';
+    } else if (pick === q.answer) {
+      html += '<p style="margin:0 0 1rem;color:#047857;font-size:0.9rem;">내 선택과 정답이 일치합니다.</p>';
+    } else {
+      html += '<p style="margin:0 0 1rem;color:var(--muted);font-size:0.9rem;">보기를 고르지 않았습니다. 해설만 확인합니다.</p>';
+    }
+    q.choices.forEach(function (c) {
+      var isAns = c.id === q.answer;
+      html += '<div class="choice-review' + (isAns ? " is-answer" : "") + '">';
+      html += '<div class="cr-head">' + circle(c.id) + ' ';
+      html += isAns ? '<span class="tag-o">정답</span>' : '<span class="tag-x">오답</span>';
+      html += '</div><div>' + c.why + '</div></div>';
+    });
+    if (q.summary) {
+      html += '<div class="summary-box"><strong>암기:</strong> ' + q.summary + '</div>';
+    }
+    panel.innerHTML = html;
+    panel.classList.add("show");
+    markOptions(q);
+  }
+
+  function toggleExplain() {
+    explained[idx] = !explained[idx];
+    render();
+  }
+
+  function go(i) {
+    if (i < 0 || i >= qs.length) return;
+    idx = i;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  document.getElementById("btn-prev").addEventListener("click", function () { go(idx - 1); });
+  document.getElementById("btn-next").addEventListener("click", function () { go(idx + 1); });
+  elBtnExplain.addEventListener("click", toggleExplain);
+  document.getElementById("btn-toggle-nav").addEventListener("click", function () {
+    sidebar.classList.toggle("open");
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+    if (e.key === "ArrowLeft") go(idx - 1);
+    if (e.key === "ArrowRight") go(idx + 1);
+    if (e.key === "e" || e.key === "E") toggleExplain();
+  });
+
+  buildNav();
+  render();
+})();
+</script>
+</body>
+</html>
